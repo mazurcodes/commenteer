@@ -1,5 +1,6 @@
-import '@/styles/globals.css';
+import '@/styles/globals.scss';
 import { Inter } from 'next/font/google';
+import MenuBar from '@/components/MenuBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <MenuBar />
+        {children}
+      </body>
     </html>
   );
 }
