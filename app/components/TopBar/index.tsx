@@ -1,4 +1,5 @@
-import styles from '@/components/MenuBar/MenuBar.module.scss';
+'use client';
+import styles from '@/components/TopBar/index.module.scss';
 import Image from 'next/image';
 import MenuIcon from '@/assets/MenuIcon.svg';
 import { useState } from 'react';
