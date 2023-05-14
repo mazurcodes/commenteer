@@ -15,3 +15,10 @@ body {
   background-color: $baseColor;
   color: $textColor;
 }
+
+input,
+button,
+select,
+textarea {
+  color: $textColor;
+}
