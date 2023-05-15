@@ -4,6 +4,7 @@ import ProjectFormSettings from './ProjectFormSettings';
 import ProjectFormDescription from './ProjectFormDescription';
 import DropdownSection from './DropdownSection';
 import { ThemeProvider, createTheme } from '@mui/material';
+import ProjectFormGenerate from './ProjectFormGenerateBtn';
 
 const ProjectForm = () => {
   const darkTheme = createTheme({
@@ -21,6 +22,7 @@ const ProjectForm = () => {
         <DropdownSection label="Settings" open={true}>
           <ProjectFormSettings />
         </DropdownSection>
+        <ProjectFormGenerate />
       </form>
     </ThemeProvider>
   );
