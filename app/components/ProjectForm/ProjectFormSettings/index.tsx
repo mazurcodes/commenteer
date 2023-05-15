@@ -17,26 +17,6 @@ const ProjectFormSettings = () => {
   const [questions, setQuestions] = useState(defaultSettings.questions);
   const [emoji, setEmoji] = useState(defaultSettings.emoji);
 
-  // const handleChange = (pos: number, neu: number, neg: number, que: number) => {
-  //   const sum = pos + neu + neg + que;
-  //   const diff = 100 - sum;
-
-  //   if (diff !== 0) {
-  //     const nonZeroParams =
-  //       (pos !== 0 ? 1 : 0) +
-  //       (neu !== 0 ? 1 : 0) +
-  //       (neg !== 0 ? 1 : 0) +
-  //       (que !== 0 ? 1 : 0);
-
-  //     const ratio = diff / nonZeroParams;
-
-  //     setPositive(pos !== 0 || ratio > 0 ? Math.floor(pos + ratio) : 0);
-  //     setNeutral(neu !== 0 || ratio > 0 ? Math.floor(neu + ratio) : 0);
-  //     setNegative(neg !== 0 || ratio > 0 ? Math.floor(neg + ratio) : 0);
-  //     setQuestions(que !== 0 || ratio > 0 ? Math.floor(que + ratio) : 0);
-  //   }
-  // };
-
   const handlePositive = (pos: number) => {
     const max = 100 - (neutral + negative + questions);
     if (pos <= max) setPositive(pos);
