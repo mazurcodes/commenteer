@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import styles from '@/components/ProjectFormInput/index.module.scss';
+import styles from './index.module.scss';
 
-const ProjectFormInput = () => {
+const ProjectFormName = () => {
   const [projectName, setProjectName] = useState('');
 
   return (
@@ -19,4 +19,4 @@ const ProjectFormInput = () => {
   );
 };
 
-export default ProjectFormInput;
+export default ProjectFormName;

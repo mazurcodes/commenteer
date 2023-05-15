@@ -1,12 +1,19 @@
 'use client';
-import ProjectFormInput from '../ProjectFormInput';
-import ProjectFormTextArea from '../ProjectFormTextArea';
+import ProjectFormName from './ProjectFormName';
+import ProjectFormSettings from './ProjectFormSettings';
+import ProjectFormDescription from './ProjectFormDescription';
+import DropdownSection from './DropdownSection';
 
 const ProjectForm = () => {
   return (
     <form>
-      <ProjectFormInput />
-      <ProjectFormTextArea />
+      <ProjectFormName />
+      <DropdownSection label="Description" open={false}>
+        <ProjectFormDescription />
+      </DropdownSection>
+      <DropdownSection title="Settings" label="settings" open={true}>
+        <ProjectFormSettings />
+      </DropdownSection>
     </form>
   );
 };
