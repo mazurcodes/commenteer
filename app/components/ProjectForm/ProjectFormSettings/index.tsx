@@ -44,6 +44,8 @@ const ProjectFormSettings = () => {
         </div>
         <Box width="100%">
           <Slider
+            tabIndex={3}
+            name="positive"
             size="small"
             defaultValue={positive}
             aria-label="positive"
@@ -69,6 +71,8 @@ const ProjectFormSettings = () => {
         </div>
         <Box width="100%">
           <Slider
+            tabIndex={4}
+            name="neutral"
             size="small"
             defaultValue={neutral}
             aria-label="neutral"
@@ -94,6 +98,8 @@ const ProjectFormSettings = () => {
         </div>
         <Box width="100%">
           <Slider
+            tabIndex={5}
+            name="negative"
             size="small"
             defaultValue={negative}
             aria-label="negative"
@@ -119,6 +125,8 @@ const ProjectFormSettings = () => {
         </div>
         <Box width="100%">
           <Slider
+            tabIndex={6}
+            name="questions"
             size="small"
             defaultValue={questions}
             aria-label="questions"
@@ -144,6 +152,8 @@ const ProjectFormSettings = () => {
         </div>
         <Box width="100%">
           <Slider
+            tabIndex={7}
+            name="emoji"
             size="small"
             defaultValue={emoji}
             aria-label="emoji"

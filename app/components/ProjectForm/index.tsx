@@ -5,16 +5,24 @@ import ProjectFormDescription from './ProjectFormDescription';
 import DropdownSection from './DropdownSection';
 import { ThemeProvider, createTheme } from '@mui/material';
 import ProjectFormGenerate from './ProjectFormGenerateBtn';
+import { FormEvent } from 'react';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 const ProjectForm = () => {
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-  });
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    const formObject = Object.fromEntries(formData.entries());
+    console.log(formObject);
+  };
   return (
     <ThemeProvider theme={darkTheme}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <ProjectFormName />
         <DropdownSection label="Description" open={false}>
           <ProjectFormDescription />
