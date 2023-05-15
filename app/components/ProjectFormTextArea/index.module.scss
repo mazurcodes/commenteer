@@ -18,6 +18,7 @@ $inputBg: #393a42;
 }
 
 .textarea {
+  resize: none;
   font-family: 'Inter';
   padding: 15px;
   color: $textColor;
