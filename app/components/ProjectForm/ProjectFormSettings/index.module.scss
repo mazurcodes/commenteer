@@ -1,0 +1,43 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 20px;
+  background-color: #393a42;
+}
+
+.controlWrapper {
+  //   margin-bottom: 50px;
+}
+
+.controlHeader {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 12px;
+
+  h3 {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.positiveColor {
+  color: #00881e;
+}
+
+.neutralColor {
+  color: #b28b00;
+}
+
+.negativeColor {
+  color: #b20000;
+}
+
+.questionsColor {
+  color: #d7d7d7;
+}
+
+.emojiColor {
+  color: #00ade3;
+}

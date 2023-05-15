@@ -11,7 +11,7 @@ const ProjectForm = () => {
       <DropdownSection label="Description" open={false}>
         <ProjectFormDescription />
       </DropdownSection>
-      <DropdownSection title="Settings" label="settings" open={true}>
+      <DropdownSection label="Settings" open={true}>
         <ProjectFormSettings />
       </DropdownSection>
     </form>
