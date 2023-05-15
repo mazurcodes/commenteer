@@ -17,41 +17,24 @@ const ProjectFormSettings = () => {
   const [questions, setQuestions] = useState(defaultSettings.questions);
   const [emoji, setEmoji] = useState(defaultSettings.emoji);
 
-  // const handleChange = (pos: number, neu: number, neg: number, que: number) => {
-  //   const sum = pos + neu + neg + que;
-  //   const diff = 100 - sum;
+  const handleChange = (pos: number, neu: number, neg: number, que: number) => {
+    const sum = pos + neu + neg + que;
+    const diff = 100 - sum;
 
-  //   if (diff !== 0) {
-  //     const nonZeroParams =
-  //       (pos !== 0 ? 1 : 0) +
-  //       (neu !== 0 ? 1 : 0) +
-  //       (neg !== 0 ? 1 : 0) +
-  //       (que !== 0 ? 1 : 0);
+    if (diff !== 0) {
+      const nonZeroParams =
+        (pos !== 0 ? 1 : 0) +
+        (neu !== 0 ? 1 : 0) +
+        (neg !== 0 ? 1 : 0) +
+        (que !== 0 ? 1 : 0);
 
-  //     const ratio = diff / nonZeroParams;
+      const ratio = diff / nonZeroParams;
 
-  //     setPositive(pos !== 0 || ratio > 0 ? Math.floor(pos + ratio) : 0);
-  //     setNeutral(neu !== 0 || ratio > 0 ? Math.floor(neu + ratio) : 0);
-  //     setNegative(neg !== 0 || ratio > 0 ? Math.floor(neg + ratio) : 0);
-  //     setQuestions(que !== 0 || ratio > 0 ? Math.floor(que + ratio) : 0);
-  //   }
-  // };
-
-  const handlePositive = (pos: number) => {
-    const max = 100 - (neutral + negative + questions);
-    if (pos <= max) setPositive(pos);
-  };
-  const handleNeutral = (neu: number) => {
-    const max = 100 - (positive + negative + questions);
-    if (neu <= max) setNeutral(neu);
-  };
-  const handleNegative = (neg: number) => {
-    const max = 100 - (neutral + positive + questions);
-    if (neg <= max) setNegative(neg);
-  };
-  const handleQuestions = (que: number) => {
-    const max = 100 - (neutral + negative + positive);
-    if (que <= max) setQuestions(que);
+      setPositive(pos);
+      setNeutral(neu !== 0 || ratio > 0 ? Math.floor(neu + ratio) : 0);
+      setNegative(neg !== 0 || ratio > 0 ? Math.floor(neg + ratio) : 0);
+      setQuestions(que !== 0 || ratio > 0 ? Math.floor(que + ratio) : 0);
+    }
   };
 
   return (
@@ -70,12 +53,9 @@ const ProjectFormSettings = () => {
             valueLabelDisplay="off"
             min={0}
             max={100}
-            marks={[
-              { value: 100 - (neutral + negative + questions), label: 'max' },
-            ]}
             value={positive}
             onChange={(event: Event, value: number | number[]) =>
-              handlePositive(value as number)
+              handleChange(value as number, neutral, negative, questions)
             }
           />
         </Box>
@@ -95,12 +75,9 @@ const ProjectFormSettings = () => {
             valueLabelDisplay="off"
             min={0}
             max={100}
-            marks={[
-              { value: 100 - (positive + negative + questions), label: 'max' },
-            ]}
             value={neutral}
             onChange={(event: Event, value: number | number[]) =>
-              handleNeutral(value as number)
+              handleChange(positive, value as number, negative, questions)
             }
           />
         </Box>
@@ -120,12 +97,9 @@ const ProjectFormSettings = () => {
             valueLabelDisplay="off"
             min={0}
             max={100}
-            marks={[
-              { value: 100 - (neutral + positive + questions), label: 'max' },
-            ]}
             value={negative}
             onChange={(event: Event, value: number | number[]) =>
-              handleNegative(value as number)
+              handleChange(positive, neutral, value as number, questions)
             }
           />
         </Box>
@@ -145,12 +119,9 @@ const ProjectFormSettings = () => {
             valueLabelDisplay="off"
             min={0}
             max={100}
-            marks={[
-              { value: 100 - (neutral + negative + positive), label: 'max' },
-            ]}
             value={questions}
             onChange={(event: Event, value: number | number[]) =>
-              handleQuestions(value as number)
+              handleChange(positive, neutral, negative, value as number)
             }
           />
         </Box>
