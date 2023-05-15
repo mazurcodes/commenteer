@@ -30,7 +30,7 @@ const ProjectFormSettings = () => {
 
       const ratio = diff / nonZeroParams;
 
-      setPositive(pos);
+      setPositive(pos !== 0 || ratio > 0 ? Math.floor(pos + ratio) : 0);
       setNeutral(neu !== 0 || ratio > 0 ? Math.floor(neu + ratio) : 0);
       setNegative(neg !== 0 || ratio > 0 ? Math.floor(neg + ratio) : 0);
       setQuestions(que !== 0 || ratio > 0 ? Math.floor(que + ratio) : 0);
