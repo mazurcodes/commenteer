@@ -8,7 +8,7 @@ const ProjectFormDescription = () => {
     <textarea
       autoFocus
       name="description"
-      placeholder='like "Dodge Coin Market"'
+      placeholder='like "This project is about the crypto exchange for the tybetan people"'
       onChange={(event) => setProjectDescription(event.target.value)}
       value={projectDescription}
       className={styles.textarea}

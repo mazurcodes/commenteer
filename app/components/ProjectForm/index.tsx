@@ -6,6 +6,7 @@ import DropdownSection from './DropdownSection';
 import { ThemeProvider, createTheme } from '@mui/material';
 import ProjectFormGenerate from './ProjectFormGenerateBtn';
 import { FormEvent } from 'react';
+import ProjectFormAmount from './ProjectFormAmount';
 
 const darkTheme = createTheme({
   palette: {
@@ -30,6 +31,7 @@ const ProjectForm = () => {
         <DropdownSection label="Settings" open={true}>
           <ProjectFormSettings />
         </DropdownSection>
+        <ProjectFormAmount />
         <ProjectFormGenerate />
       </form>
     </ThemeProvider>
