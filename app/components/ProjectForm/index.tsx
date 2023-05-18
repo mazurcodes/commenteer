@@ -5,7 +5,7 @@ import ProjectFormDescription from './ProjectFormDescription';
 import DropdownSection from './DropdownSection';
 import { ThemeProvider, createTheme } from '@mui/material';
 import ProjectFormGenerate from './ProjectFormGenerateBtn';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import ProjectFormAmount from './ProjectFormAmount';
 
 const darkTheme = createTheme({
@@ -15,11 +15,20 @@ const darkTheme = createTheme({
 });
 
 const ProjectForm = () => {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const [comments, setComments] = useState();
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const formObject = Object.fromEntries(formData.entries());
-    console.log(formObject);
+    const response = await fetch('/api/completion', {
+      method: 'POST',
+      body: JSON.stringify(formObject),
+    });
+    if (response.ok) {
+      const commentsData = await response.json();
+      setComments(commentsData);
+    }
   };
   return (
     <ThemeProvider theme={darkTheme}>
