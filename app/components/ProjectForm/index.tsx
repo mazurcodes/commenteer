@@ -48,7 +48,6 @@ const ProjectForm = () => {
         <ProjectFormGenerate working={isWorking} />
       </form>
       {comments && <CompletionDisplay completionData={comments} />}
-      <CompletionDisplay completionData="this is a silple comment \n This is a new comment" />
     </ThemeProvider>
   );
 };
