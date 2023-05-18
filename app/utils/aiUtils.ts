@@ -17,7 +17,7 @@ export const createCompletion = async (data: CreateCompletionProps) => {
     model: 'text-davinci-003',
     prompt,
     max_tokens: 1000,
-    temperature: 0.2,
+    temperature: 1.0,
   });
 };
 
@@ -41,6 +41,8 @@ export const createPrompt = (data: CreateCompletionProps) => {
   Another ${negative}% of the comments to be negative.
   Another ${questions}% of the comments to be questions.
   In ${emoji}% of the comments you can use emojis.
+  Wherever you would use name of the project use '__' instead. 
   In your response every comment should be in the new line.
-  Lines should not be numbered or formatted.`;
+  Encapsulate every comment in [] brackets.
+  DON'T REPEAT COMMENTS`;
 };
