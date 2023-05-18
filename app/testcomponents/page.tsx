@@ -1,11 +1,11 @@
 'use client';
-import CompletionDisplay from '@/components/CompletionDisplay';
+import CommentInput from '@/components/CommentInput';
 import styles from '@/page.module.scss';
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <CompletionDisplay completionData="" />
+      <CommentInput />
     </main>
   );
 }
