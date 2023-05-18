@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import Image from 'next/image';
 import CopyIcon from '@/assets/CopyIcon.svg';
+import { convertListToLines } from '@/utils/textUtils';
 
 type CompletionDisplayProps = {
   completionData: string | undefined;
@@ -15,7 +16,10 @@ const CompletionDisplay = ({ completionData }: CompletionDisplayProps) => {
   };
 
   useEffect(() => {
-    completionData && setCompletion(completionData);
+    if (completionData) {
+      const convertedData = convertListToLines(completionData);
+      setCompletion(convertedData);
+    }
   }, [completionData]);
 
   return (
