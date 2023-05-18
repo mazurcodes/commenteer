@@ -16,7 +16,7 @@ export const createCompletion = async (data: CreateCompletionProps) => {
   return await openai.createCompletion({
     model: 'text-davinci-003',
     prompt,
-    max_tokens: 1000,
+    max_tokens: 2000,
     temperature: 1.0,
   });
 };
