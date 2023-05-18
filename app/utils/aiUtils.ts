@@ -46,3 +46,35 @@ export const createPrompt = (data: CreateCompletionProps) => {
   Encapsulate every comment in [] brackets.
   DON'T REPEAT COMMENTS`;
 };
+
+// ************************* Positive completion ************************
+
+export type CreatePositiveCompletionProps = {
+  name: string;
+  emoji: number;
+  amount: number;
+};
+
+export const createPositiveCompletion = async (
+  data: CreatePositiveCompletionProps
+) => {
+  const prompt = createPositivePrompt(data);
+  return await openai.createCompletion({
+    model: 'text-davinci-003',
+    prompt,
+    max_tokens: 1000,
+    temperature: 1.0,
+  });
+};
+
+export const createPositivePrompt = (data: CreatePositiveCompletionProps) => {
+  const { name, emoji, amount } = data;
+
+  return `I have created a youtube video about crypto project named ${name}.
+  Please generate ${amount} positive viewer comments on the video.
+  In ${emoji}% of the comments you can use emojis.
+  Wherever you would use name of the project use '__' instead. 
+  In your response every comment should be in the new line.
+  Encapsulate every comment in [] brackets.
+  DON'T REPEAT COMMENTS`;
+};
