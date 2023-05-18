@@ -1,9 +1,13 @@
 import styles from './index.module.scss';
 
-const ProjectFormGenerate = () => {
+type ProjectFormAmountProps = {
+  working: boolean;
+};
+
+const ProjectFormGenerate = ({ working }: ProjectFormAmountProps) => {
   return (
     <button tabIndex={9} type="submit" className={styles.button}>
-      Generate Comments
+      {working ? 'Working...' : 'Generate Comments'}
     </button>
   );
 };

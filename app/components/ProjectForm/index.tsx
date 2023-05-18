@@ -16,12 +16,14 @@ const darkTheme = createTheme({
 });
 
 const ProjectForm = () => {
+  const [isWorking, setWorking] = useState(false);
   const [comments, setComments] = useState<string>();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const formObject = Object.fromEntries(formData.entries());
+    setWorking(true);
     const response = await fetch('/api/completion', {
       method: 'POST',
       body: JSON.stringify(formObject),
@@ -29,6 +31,7 @@ const ProjectForm = () => {
     if (response.ok) {
       const commentsData = await response.json();
       setComments(commentsData);
+      setWorking(false);
     }
   };
   return (
@@ -42,9 +45,10 @@ const ProjectForm = () => {
           <ProjectFormSettings />
         </DropdownSection>
         <ProjectFormAmount />
-        <ProjectFormGenerate />
+        <ProjectFormGenerate working={isWorking} />
       </form>
       {comments && <CompletionDisplay completionData={comments} />}
+      <CompletionDisplay completionData="this is a silple comment \n This is a new comment" />
     </ThemeProvider>
   );
 };
