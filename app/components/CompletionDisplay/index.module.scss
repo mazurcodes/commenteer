@@ -1,0 +1,19 @@
+.completionWrapper {
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 35px;
+}
+
+.textarea {
+  resize: none;
+  font-family: 'Inter';
+  padding: 15px;
+  color: #d7d7d7;
+  background-color: #393a42;
+  border: none;
+}
