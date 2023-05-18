@@ -13,7 +13,6 @@ export type CreateCompletionProps = {
 
 export const createCompletion = async (data: CreateCompletionProps) => {
   const prompt = createPrompt(data);
-  // console.log(prompt);
   return await openai.createCompletion({
     model: 'text-davinci-003',
     prompt,
