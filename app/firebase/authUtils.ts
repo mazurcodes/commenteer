@@ -12,7 +12,6 @@ import {
 } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import { auth } from './clientApp';
-import { changeGiftsOwnerEmail, deleteUsersGifts } from './crudUtils';
 
 const getCredential = (userPassword: string) => {
   if (auth.currentUser?.email)
@@ -111,8 +110,6 @@ export const useDeleteCurrentUser = (): [
     const userCredential = await reauthenticateUser(password);
 
     if (userCredential) {
-      userCredential.user.email &&
-        (await deleteUsersGifts(userCredential.user.email));
       setIsDeleted(await deleteCurrentUser());
     }
   };
@@ -155,8 +152,6 @@ export const useChangeEmail = (): [
     const userCredential = await reauthenticateUser(password);
 
     if (userCredential) {
-      userCredential.user.email &&
-        (await changeGiftsOwnerEmail(userCredential.user.email, newEmail));
       setIsChanged(await updateEmail(newEmail));
     }
   };
