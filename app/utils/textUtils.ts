@@ -1,4 +1,4 @@
-import { CommentType } from '@/types/comments';
+import { CommentType } from '@/types';
 
 export const convertListToLines = (text: string) => {
   return text.replace(/\n[\d•]+\.\s/g, '\n');
