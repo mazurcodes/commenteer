@@ -18,5 +18,5 @@ export const commentsArrayToObjects = (
   comments: string[],
   type: CommentType
 ) => {
-  return comments.map((comment) => ({ type, comment }));
+  return comments.map((text) => ({ type, text, createdAt: Date.now() }));
 };

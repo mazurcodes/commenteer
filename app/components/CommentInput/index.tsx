@@ -6,6 +6,7 @@ import {
   commentsArrayToObjects,
   extractCommentsToArray,
 } from '@/utils/textUtils';
+import { createMultipleComments } from '@/firebase/crudUtils';
 
 const CommentInput = () => {
   const [completion, setCompletion] = useState<string>();
@@ -13,7 +14,8 @@ const CommentInput = () => {
   const handleSend = () => {
     const commentsArray = completion ? extractCommentsToArray(completion) : [];
     const commentObjects = commentsArrayToObjects(commentsArray, 'positive');
-    console.log(commentObjects);
+    console.log('Sent to database: ', commentObjects);
+    createMultipleComments(commentObjects);
   };
 
   return (

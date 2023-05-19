@@ -1,126 +1,139 @@
 import { db } from '@/firebase/clientApp';
 import {
   collection,
-  addDoc,
+  // addDoc,
   getDocs,
-  getDoc,
-  updateDoc,
+  // getDoc,
+  // updateDoc,
   doc,
-  deleteDoc,
+  // deleteDoc,
   query,
   where,
   writeBatch,
 } from 'firebase/firestore';
-import { useDocumentOnce } from 'react-firebase-hooks/firestore';
-import type { FirestoreError } from 'firebase/firestore';
-import type { GiftDataType } from '@/types';
+// import { useDocumentOnce } from 'react-firebase-hooks/firestore';
+// import type { FirestoreError } from 'firebase/firestore';
+import type { Comment } from '@/types';
 import { toast } from 'react-toastify';
 
 // TODO: research how to handle Error messages whithout crashing app
 
-// Firestore collection reference for gifts
-const giftsCollection = collection(db, 'gifts');
+// Firestore collection reference for comments
+const commentsCollection = collection(db, 'comments');
 
-export const createGift = async (giftData: GiftDataType): Promise<string> => {
+export const getAllComments = async (
+  type: string | null
+): Promise<Comment[]> => {
+  if (!type) return [];
   try {
-    const docRef = await addDoc(giftsCollection, giftData);
-    toast.success('Gift created successfully!');
-    return docRef.id;
-  } catch (error) {
-    toast.error(`Failed to create gift: ${error}`);
-    console.error('Failed to create gift:', error);
-    throw new Error('Failed to create gift');
-  }
-};
-
-export const getGift = async (giftId: string): Promise<GiftDataType | null> => {
-  try {
-    const docSnap = await getDoc(doc(giftsCollection, giftId));
-    if (docSnap.exists()) {
-      return docSnap.data() as GiftDataType;
-    } else return null;
-  } catch (error) {
-    toast.error(`Error getting gift: ${error}`);
-    console.error('Error getting gift', error);
-    throw new Error('Failed to get gift');
-  }
-};
-
-export const getAllGifts = async (
-  ownerEmail: string | null
-): Promise<GiftDataType[]> => {
-  if (!ownerEmail) return [];
-  try {
-    const q = query(giftsCollection, where('ownerEmail', '==', ownerEmail));
+    const q = query(commentsCollection, where('type', '==', type));
     const snapshot = await getDocs(q);
     return snapshot.docs.map(
-      (doc) => ({ ...doc.data(), uid: doc.id } as GiftDataType)
+      (doc) => ({ ...doc.data(), id: doc.id } as Comment)
     );
   } catch (error) {
-    console.error('Error getting gifts:', error);
-    toast.error(`Error getting gift: ${error}`);
-    throw new Error('Failed to get gifts');
+    console.error('Error getting comments:', error);
+    toast.error(`Error getting comments: ${error}`);
+    throw new Error('Failed to get comments');
   }
 };
 
-export const updateGift = async (
-  giftId: string,
-  giftData: Partial<GiftDataType>
-): Promise<string> => {
-  try {
-    await updateDoc(doc(giftsCollection, giftId), giftData);
-    toast.success('Gift updated successfully!');
-    return giftId;
-  } catch (error) {
-    console.error('Error updating gift:', error);
-    toast.error(`Error updating gift: ${error}`);
-    throw new Error('Failed to update gift');
-  }
-};
-
-export const deleteGift = async (giftId: string): Promise<string> => {
-  try {
-    await deleteDoc(doc(giftsCollection, giftId));
-    toast.success('Gift deleted successfully!');
-    return giftId;
-  } catch (error) {
-    console.error('Error deleting gift:', error);
-    toast.error(`Error deleting gift: ${error}`);
-    throw new Error('Failed to delete gift');
-  }
-};
-
-export const useGift = (
-  giftId = ''
-): [GiftDataType | undefined, boolean, FirestoreError | undefined] => {
-  const [value, loading, error] = useDocumentOnce(doc(giftsCollection, giftId));
-  const gift = value?.data();
-  return [gift as GiftDataType, loading, error];
-};
-
-export const deleteUsersGifts = async (ownerEmail: string) => {
+export const createMultipleComments = async (data: Comment[]) => {
   const batch = writeBatch(db);
-  const gifts = await getAllGifts(ownerEmail);
 
-  gifts.forEach((gift) => {
-    const docRef = doc(giftsCollection, gift.uid);
-    batch.delete(docRef);
+  data.forEach((comment) => {
+    const docRef = doc(commentsCollection);
+    batch.set(docRef, comment);
   });
 
   batch.commit();
 };
 
-export const changeGiftsOwnerEmail = async (
-  ownerEmail: string,
-  newOwnerEmail: string
-) => {
-  const batch = writeBatch(db);
-  const gifts = await getAllGifts(ownerEmail);
+// export const createComment = async (comment: Comment): Promise<string> => {
+//   try {
+//     const docRef = await addDoc(commentsCollection, comment);
+//     toast.success('Comment created successfully!');
+//     return docRef.id;
+//   } catch (error) {
+//     toast.error(`Failed to create comment: ${error}`);
+//     console.error('Failed to create comment:', error);
+//     throw new Error('Failed to create comment');
+//   }
+// };
 
-  gifts.forEach((gift) => {
-    const docRef = doc(giftsCollection, gift.uid);
-    batch.update(docRef, { ownerEmail: newOwnerEmail });
-  });
+// export const getGift = async (commentId: string): Promise<Comment | null> => {
+//   try {
+//     const docSnap = await getDoc(doc(commentsCollection, commentId));
+//     if (docSnap.exists()) {
+//       return docSnap.data() as Comment;
+//     } else return null;
+//   } catch (error) {
+//     toast.error(`Error getting comment: ${error}`);
+//     console.error('Error getting comment', error);
+//     throw new Error('Failed to get comment');
+//   }
+// };
 
-  batch.commit();
-};
+// export const updateGift = async (
+//   giftId: string,
+//   giftData: Partial<GiftDataType>
+// ): Promise<string> => {
+//   try {
+//     await updateDoc(doc(commentsCollection, giftId), giftData);
+//     toast.success('Gift updated successfully!');
+//     return giftId;
+//   } catch (error) {
+//     console.error('Error updating gift:', error);
+//     toast.error(`Error updating gift: ${error}`);
+//     throw new Error('Failed to update gift');
+//   }
+// };
+
+// export const deleteGift = async (giftId: string): Promise<string> => {
+//   try {
+//     await deleteDoc(doc(commentsCollection, giftId));
+//     toast.success('Gift deleted successfully!');
+//     return giftId;
+//   } catch (error) {
+//     console.error('Error deleting gift:', error);
+//     toast.error(`Error deleting gift: ${error}`);
+//     throw new Error('Failed to delete gift');
+//   }
+// };
+
+// export const useGift = (
+//   giftId = ''
+// ): [GiftDataType | undefined, boolean, FirestoreError | undefined] => {
+//   const [value, loading, error] = useDocumentOnce(
+//     doc(commentsCollection, giftId)
+//   );
+//   const gift = value?.data();
+//   return [gift as GiftDataType, loading, error];
+// };
+
+// export const deleteUsersGifts = async (ownerEmail: string) => {
+//   const batch = writeBatch(db);
+//   const gifts = await getAllGifts(ownerEmail);
+
+//   gifts.forEach((gift) => {
+//     const docRef = doc(commentsCollection, gift.uid);
+//     batch.delete(docRef);
+//   });
+
+//   batch.commit();
+// };
+
+// export const changeGiftsOwnerEmail = async (
+//   ownerEmail: string,
+//   newOwnerEmail: string
+// ) => {
+//   const batch = writeBatch(db);
+//   const gifts = await getAllGifts(ownerEmail);
+
+//   gifts.forEach((gift) => {
+//     const docRef = doc(commentsCollection, gift.uid);
+//     batch.update(docRef, { ownerEmail: newOwnerEmail });
+//   });
+
+//   batch.commit();
+// };
