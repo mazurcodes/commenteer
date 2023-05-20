@@ -22,6 +22,8 @@ export const commentsArrayToObjects = (
     type,
     text,
     createdAt: Date.now(),
-    rng: Math.floor(Math.random() * 20000),
+    rngOne: Math.floor(Math.random() * 20000),
+    rngTwo: Math.floor(Math.random() * 20000),
+    rngThree: Math.floor(Math.random() * 20000),
   }));
 };

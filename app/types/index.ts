@@ -4,7 +4,9 @@ export type Comment = {
   type: CommentType;
   text: string;
   createdAt: number;
-  rng: number;
+  rngOne: number;
+  rngTwo: number;
+  rngThree: number;
   id?: string;
 };
 
