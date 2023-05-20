@@ -18,5 +18,10 @@ export const commentsArrayToObjects = (
   comments: string[],
   type: CommentType
 ) => {
-  return comments.map((text) => ({ type, text, createdAt: Date.now() }));
+  return comments.map((text) => ({
+    type,
+    text,
+    createdAt: Date.now(),
+    rng: Math.floor(Math.random() * 20000),
+  }));
 };
