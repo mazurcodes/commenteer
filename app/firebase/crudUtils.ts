@@ -10,18 +10,49 @@ import {
   query,
   where,
   writeBatch,
+  orderBy,
+  limit,
 } from 'firebase/firestore';
 // import { useDocumentOnce } from 'react-firebase-hooks/firestore';
 // import type { FirestoreError } from 'firebase/firestore';
 import type { Comment } from '@/types';
 import { toast } from 'react-toastify';
+import { rngAscDesc } from './rngUtils';
 
 // TODO: research how to handle Error messages whithout crashing app
 
 // Firestore collection reference for comments
 const commentsCollection = collection(db, 'comments');
 
-export const getAllComments = async (
+export const getRandomCommentsOfType = async (
+  type: string | null,
+  amount: number
+): Promise<Comment[]> => {
+  if (!type) return [];
+  if (!amount) return [];
+
+  try {
+    const q = query(
+      commentsCollection,
+      where('type', '==', type),
+      orderBy('rngOne', rngAscDesc()),
+      orderBy('rngTwo', rngAscDesc()),
+      orderBy('rngThree', rngAscDesc()),
+      limit(amount)
+    );
+
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(
+      (doc) => ({ ...doc.data(), id: doc.id } as Comment)
+    );
+  } catch (error) {
+    console.error('Error getting comments:', error);
+    toast.error(`Error getting comments: ${error}`);
+    throw new Error('Failed to get comments');
+  }
+};
+
+export const getAllCommentsOfType = async (
   type: string | null
 ): Promise<Comment[]> => {
   if (!type) return [];
