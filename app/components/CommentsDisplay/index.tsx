@@ -1,35 +1,23 @@
-import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import Image from 'next/image';
 import CopyIcon from '@/assets/CopyIcon.svg';
-import { convertListToLines } from '@/utils/textUtils';
 
 type CompletionDisplayProps = {
-  completionData: string | undefined;
+  comments: string | undefined;
 };
 
-const CompletionDisplay = ({ completionData }: CompletionDisplayProps) => {
-  const [completion, setCompletion] = useState<string>();
-
+const CommentsDisplay = ({ comments }: CompletionDisplayProps) => {
   const handleCopyAll = () => {
-    completion && navigator.clipboard.writeText(completion);
+    comments && navigator.clipboard.writeText(comments);
   };
-
-  useEffect(() => {
-    if (completionData) {
-      const convertedData = convertListToLines(completionData);
-      setCompletion(convertedData);
-    }
-  }, [completionData]);
-
   return (
     <div className={styles.completionWrapper}>
       <label htmlFor="completion" className={styles.label}>
         <p>Comments</p>
         <textarea
+          readOnly
           name="completion"
-          value={completion}
-          onChange={(event) => setCompletion(event.target.value)}
+          value={comments}
           className={styles.textarea}
           rows={30}
         />
@@ -46,4 +34,4 @@ const CompletionDisplay = ({ completionData }: CompletionDisplayProps) => {
   );
 };
 
-export default CompletionDisplay;
+export default CommentsDisplay;

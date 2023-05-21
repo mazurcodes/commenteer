@@ -7,7 +7,7 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import ProjectFormGenerate from './ProjectFormGenerateBtn';
 import { FormEvent, useState } from 'react';
 import ProjectFormAmount from './ProjectFormAmount';
-import CompletionDisplay from '../CompletionDisplay';
+import CommentsDisplay from '../CommentsDisplay';
 
 const darkTheme = createTheme({
   palette: {
@@ -47,7 +47,7 @@ const ProjectForm = () => {
         <ProjectFormAmount />
         <ProjectFormGenerate working={isWorking} />
       </form>
-      {comments && <CompletionDisplay completionData={comments} />}
+      {comments && <CommentsDisplay comments={comments} />}
     </ThemeProvider>
   );
 };
