@@ -13,10 +13,13 @@ export function shuffleComments(comments: Comment[]): Comment[] {
   return comments;
 }
 
-export function prepComments(comments: Comment[], projName: string): Comment[] {
+export function prepComments(comments: Comment[], projName: string): string {
   const prepared = comments.map((comment) =>
     injectProjectName(comment, projName)
   );
   const shuffled = shuffleComments(prepared);
-  return shuffled;
+  const commentsText = shuffled.reduce((text, comment) => {
+    return `${text}\n${comment.text}`;
+  }, '');
+  return commentsText;
 }

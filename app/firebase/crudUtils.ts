@@ -15,7 +15,7 @@ import {
 } from 'firebase/firestore';
 // import { useDocumentOnce } from 'react-firebase-hooks/firestore';
 // import type { FirestoreError } from 'firebase/firestore';
-import type { Comment } from '@/types';
+import type { Comment, CommentType } from '@/types';
 import { toast } from 'react-toastify';
 import { rngAscDesc } from './rngUtils';
 
@@ -25,7 +25,7 @@ import { rngAscDesc } from './rngUtils';
 const commentsCollection = collection(db, 'comments');
 
 export const getRandomCommentsOfType = async (
-  type: string | null,
+  type: CommentType | null,
   amount: number
 ): Promise<Comment[]> => {
   if (!type) return [];

@@ -23,7 +23,7 @@ export type Job = {
   description?: string;
   settings: JobSettings;
   amount: number;
-  comments: Comment[];
+  comments: string;
   id?: string;
   createdAt: number;
 };
