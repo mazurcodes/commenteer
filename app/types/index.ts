@@ -19,10 +19,11 @@ export type JobSettings = {
 };
 
 export type Job = {
-  createdAt: number;
   name: string;
   description?: string;
   settings: JobSettings;
   amount: number;
+  comments: Comment[];
   id?: string;
+  createdAt: number;
 };
