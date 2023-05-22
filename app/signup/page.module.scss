@@ -1,0 +1,22 @@
+.mainWrapper {
+  min-height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error {
+  color: #d10101;
+}
+
+.link {
+  padding: 12px;
+  color: #d7d7d7;
+  text-decoration: none;
+}
+
+.span {
+  font-weight: 700;
+  text-decoration: underline;
+}
