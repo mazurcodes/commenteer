@@ -1,4 +1,4 @@
-import '@/styles/globals.scss';
+import './globals.scss';
 import { Inter } from 'next/font/google';
 import TopBar from '@/components/TopBar';
 
