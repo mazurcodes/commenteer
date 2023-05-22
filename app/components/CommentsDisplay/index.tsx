@@ -3,7 +3,7 @@ import Image from 'next/image';
 import CopyIcon from '@/assets/CopyIcon.svg';
 
 type CompletionDisplayProps = {
-  comments: string | undefined;
+  comments: string;
 };
 
 const CommentsDisplay = ({ comments }: CompletionDisplayProps) => {
