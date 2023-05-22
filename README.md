@@ -6,6 +6,7 @@
 
 - [Description](#description)
 - [Demo](#demo)
+- [Figma project](#figma-project)
 - [Agile Board](#agile-board)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
@@ -33,6 +34,12 @@ With Commenteer, creators can easily create custom sets of comments to enhance e
 Commenteer is currently in version 0.1 and under development:
 
 - [Demo on Vercel](https://commenteer.vercel.app/)
+
+## Figma project
+
+Check my design:
+
+- [Figma Commenteer](https://www.figma.com/file/5vCILEMuIg2ClBWIQST7iZ/Commenteer?type=design&node-id=0%3A1&t=se4e7He5aaKJMJzz-1)
 
 ## Agile Board
 
