@@ -1,11 +1,12 @@
 import NavJobsList from '../NavJobsList';
+import NavMenu from '../NavMenu';
 import styles from './index.module.scss';
 
 const Nav = () => {
   return (
     <nav className={styles.nav}>
       <NavJobsList />
-      {/* <NavMenu /> */}
+      <NavMenu />
     </nav>
   );
 };
