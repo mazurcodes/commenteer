@@ -1,6 +1,8 @@
 import './globals.scss';
+import styles from './layout.module.scss';
 import { Inter } from 'next/font/google';
 import TopBar from '@/components/TopBar';
+import Nav from './components/Nav';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,8 +19,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TopBar />
-        {children}
+        <div className={styles.wrapper}>
+          <Nav />
+          <div className={styles.mainWrapper}>
+            <TopBar />
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );
