@@ -4,6 +4,8 @@ import ProjectForm from './components/ProjectForm';
 import { auth } from './firebase/clientApp';
 import WelcomeScreen from './components/WelcomeScreen';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import TopBar from './components/TopBar';
+import Nav from './components/Nav';
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
@@ -29,9 +31,15 @@ export default function Home() {
 
   if (user)
     return (
-      <main className={styles.main}>
-        <ProjectForm />
-      </main>
+      <div className={styles.wrapper}>
+        <Nav />
+        <div className={styles.mainWrapper}>
+          <TopBar />
+          <main className={styles.main}>
+            <ProjectForm />
+          </main>
+        </div>
+      </div>
     );
 
   return (

@@ -1,10 +1,18 @@
+.wrapper {
+  display: flex;
+}
+
+.mainWrapper {
+  flex: 1;
+}
+
+.main {
+  padding: 35px;
+}
+
 .center {
   min-height: calc(100vh - 50px);
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.main {
-  padding: 35px;
 }
