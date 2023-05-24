@@ -3,12 +3,12 @@ import styles from './index.module.scss';
 import JobCompletedIcon from '@/assets/JobCompletedIcon.svg';
 import Link from 'next/link';
 
-type NavJobProps = {
+type JobProps = {
   id: string;
   name: string;
 };
 
-const NavJob = ({ id, name }: NavJobProps) => {
+const Job = ({ id, name }: JobProps) => {
   return (
     <Link className={styles.jobWrapper} href={`/j/${id}`}>
       <Image
@@ -22,4 +22,4 @@ const NavJob = ({ id, name }: NavJobProps) => {
   );
 };
 
-export default NavJob;
+export default Job;
