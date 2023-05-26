@@ -6,6 +6,7 @@ import ArrowIcon from '@/assets/ArrowIcon.svg';
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Settings = () => {
   const [isOpen, setOpen] = useState(false);
@@ -34,9 +35,12 @@ const Settings = () => {
             <Image src={DeleteAccountIcon} alt="delete account icon" />
             <p>Delete Account</p>
           </div>
-          <button className={[styles.sectionBtn, styles.deleteBtn].join(' ')}>
+          <Link
+            href={'/deleteacc'}
+            className={[styles.sectionBtn, styles.deleteLink].join(' ')}
+          >
             Delete
-          </button>
+          </Link>
         </div>
       </div>
       <button className={styles.settingsBtn} onClick={() => setOpen(!isOpen)}>
