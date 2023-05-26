@@ -1,0 +1,35 @@
+.userMenu {
+  padding: 10px;
+  position: relative;
+}
+
+.userMenuBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: inherit;
+  text-align: left;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #474747;
+  }
+}
+
+.email {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.arrowOpen {
+  transform: rotate(-90deg);
+}

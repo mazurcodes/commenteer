@@ -3,9 +3,11 @@ import styles from '@/components/TopBar/index.module.scss';
 import Image from 'next/image';
 import MenuIcon from '@/assets/MenuIcon.svg';
 import { useState } from 'react';
+import NavMobile from '../NavMobile';
 
 const TopBar = () => {
   const [isOpen, setOpen] = useState(false);
+
   return (
     <div className={styles.menuWrapper}>
       <button className={styles.menuBarBtn} onClick={() => setOpen(!isOpen)}>
@@ -18,6 +20,9 @@ const TopBar = () => {
         />
       </button>
       <h1 className={styles.menuBarLogo}>Commenteer</h1>
+      <div className={!isOpen ? styles.hidden : styles.navMobile}>
+        <NavMobile />
+      </div>
     </div>
   );
 };
