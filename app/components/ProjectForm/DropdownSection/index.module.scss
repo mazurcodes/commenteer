@@ -4,6 +4,10 @@
   font-size: 14px;
   font-weight: 500;
   margin-top: 35px;
+
+  @media (min-width: 750px) {
+    margin-top: 0;
+  }
 }
 .extendedLabel {
   display: flex;
