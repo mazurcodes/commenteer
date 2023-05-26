@@ -1,5 +1,6 @@
 .wrapper {
   display: flex;
+  min-height: 100dvh;
 }
 
 .mainWrapper {
@@ -8,6 +9,7 @@
 
 .main {
   padding: 35px;
+  max-width: 820px;
 }
 
 .center {
