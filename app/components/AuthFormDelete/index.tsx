@@ -33,6 +33,7 @@ const AuthFormDelete = () => {
         <label className={styles.label} htmlFor="login-password">
           <p>Confirm your password:</p>
           <input
+            autoComplete="off"
             tabIndex={1}
             required
             type="password"
