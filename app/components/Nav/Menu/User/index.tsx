@@ -5,6 +5,7 @@ import Image from 'next/image';
 import UserIcon from '@/assets/UserIcon.svg';
 import ArrowIcon from '@/assets/ArrowIcon.svg';
 import UserMenu from './Menu';
+import { shortEmailAddress } from '@/utils/emailUtils';
 
 const MenuUser = () => {
   const [isOpen, setOpen] = useState(false);
@@ -17,7 +18,7 @@ const MenuUser = () => {
       <button className={styles.userMenuBtn} onClick={() => setOpen(!isOpen)}>
         <div className={styles.email}>
           <Image src={UserIcon} height={20} width={20} alt="user icon" />
-          {auth.currentUser?.email}
+          {shortEmailAddress(auth.currentUser?.email || '', 28)}
         </div>
         <Image
           src={ArrowIcon}

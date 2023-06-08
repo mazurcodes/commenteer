@@ -11,6 +11,10 @@
     justify-content: right;
     border: none;
   }
+
+  @media (min-width: 960px) {
+    height: 100px;
+  }
 }
 
 .menuBarBtn {
@@ -25,6 +29,10 @@
 .menuBarLogo {
   font-size: 20px;
   font-weight: 700;
+
+  @media (min-width: 960px) {
+    font-size: 48px;
+  }
 }
 
 .hidden {

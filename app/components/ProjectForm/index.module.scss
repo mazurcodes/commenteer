@@ -1,0 +1,40 @@
+.form {
+  display: grid;
+  gap: 35px;
+  margin-bottom: 60px;
+  grid-template-columns: 100%;
+  grid-template-areas:
+    'name'
+    'description'
+    'settings'
+    'amount'
+    'submitBtn';
+
+  @media (min-width: 650px) {
+    padding: 30px;
+  }
+
+  @media (min-width: 770px) {
+    grid-template-columns: 7fr 0fr 7fr;
+    grid-template-rows: 75px auto 75px 60px;
+    grid-template-areas:
+      'name . settings'
+      'description . settings'
+      'amount . settings'
+      'submitBtn . settings';
+  }
+
+  @media (min-width: 960px) {
+    display: grid;
+    gap: 35px;
+    grid-template-columns: 4fr 1fr 4fr;
+  }
+}
+
+.descriptionWrapper {
+  grid-area: description;
+}
+
+.settingsWrapper {
+  grid-area: settings;
+}

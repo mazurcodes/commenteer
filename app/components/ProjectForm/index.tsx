@@ -8,6 +8,7 @@ import ProjectFormGenerate from './ProjectFormGenerateBtn';
 import { FormEvent, useState } from 'react';
 import ProjectFormAmount from './ProjectFormAmount';
 import CommentsDisplay from '../CommentsDisplay';
+import styles from './index.module.scss';
 
 const darkTheme = createTheme({
   palette: {
@@ -36,14 +37,18 @@ const ProjectForm = () => {
   };
   return (
     <ThemeProvider theme={darkTheme}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <ProjectFormName />
-        <DropdownSection label="Description" open={false}>
-          <ProjectFormDescription />
-        </DropdownSection>
-        <DropdownSection label="Settings" open={true}>
-          <ProjectFormSettings />
-        </DropdownSection>
+        <div className={styles.descriptionWrapper}>
+          <DropdownSection label="Description" open={false}>
+            <ProjectFormDescription />
+          </DropdownSection>
+        </div>
+        <div className={styles.settingsWrapper}>
+          <DropdownSection label="Settings" open={true}>
+            <ProjectFormSettings />
+          </DropdownSection>
+        </div>
         <ProjectFormAmount />
         <ProjectFormGenerate working={isWorking} />
       </form>

@@ -2,6 +2,7 @@ $textColor: #d7d7d7;
 $inputBg: #393a42;
 
 .label {
+  grid-area: name;
   display: flex;
   flex-direction: column;
   font-size: 14px;
