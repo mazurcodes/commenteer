@@ -18,7 +18,7 @@ export type JobSettings = {
   emojis: number;
 };
 
-export type Job = {
+export type JobData = {
   name: string;
   description?: string;
   settings: JobSettings;

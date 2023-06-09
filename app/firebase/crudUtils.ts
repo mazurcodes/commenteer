@@ -12,10 +12,11 @@ import {
   writeBatch,
   orderBy,
   limit,
+  addDoc,
 } from 'firebase/firestore';
 // import { useDocumentOnce } from 'react-firebase-hooks/firestore';
 // import type { FirestoreError } from 'firebase/firestore';
-import type { Comment, CommentType } from '@/types';
+import type { Comment, CommentType, JobData } from '@/types';
 import { toast } from 'react-toastify';
 import { rngAscDesc } from './rngUtils';
 
@@ -78,6 +79,21 @@ export const createMultipleComments = async (data: Comment[]) => {
   });
 
   batch.commit();
+};
+
+// Firestore collection reference for comments
+const jobsCollection = collection(db, 'jobs');
+
+export const createJob = async (jobData: JobData): Promise<string> => {
+  try {
+    const docRef = await addDoc(jobsCollection, jobData);
+    toast.success('Job created successfully!');
+    return docRef.id;
+  } catch (error) {
+    toast.error(`Failed to create job: ${error}`);
+    console.error('Failed to create job:', error);
+    throw new Error('Failed to create job');
+  }
 };
 
 // export const createComment = async (comment: Comment): Promise<string> => {
