@@ -1,12 +1,8 @@
 import { db } from '@/firebase/clientApp';
 import {
   collection,
-  // addDoc,
   getDocs,
-  // getDoc,
-  // updateDoc,
   doc,
-  // deleteDoc,
   query,
   where,
   writeBatch,
@@ -14,10 +10,7 @@ import {
   limit,
   addDoc,
 } from 'firebase/firestore';
-// import { useDocumentOnce } from 'react-firebase-hooks/firestore';
-// import type { FirestoreError } from 'firebase/firestore';
 import type { Comment, CommentType, JobData } from '@/types';
-import { toast } from 'react-toastify';
 import { rngAscDesc } from './rngUtils';
 
 // TODO: research how to handle Error messages whithout crashing app
@@ -48,7 +41,6 @@ export const getRandomCommentsOfType = async (
     );
   } catch (error) {
     console.error('Error getting comments:', error);
-    toast.error(`Error getting comments: ${error}`);
     throw new Error('Failed to get comments');
   }
 };
@@ -65,7 +57,6 @@ export const getAllCommentsOfType = async (
     );
   } catch (error) {
     console.error('Error getting comments:', error);
-    toast.error(`Error getting comments: ${error}`);
     throw new Error('Failed to get comments');
   }
 };
@@ -87,10 +78,8 @@ const jobsCollection = collection(db, 'jobs');
 export const createJob = async (jobData: JobData): Promise<string> => {
   try {
     const docRef = await addDoc(jobsCollection, jobData);
-    toast.success('Job created successfully!');
     return docRef.id;
   } catch (error) {
-    toast.error(`Failed to create job: ${error}`);
     console.error('Failed to create job:', error);
     throw new Error('Failed to create job');
   }
