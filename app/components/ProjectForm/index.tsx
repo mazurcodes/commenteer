@@ -7,7 +7,6 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import ProjectFormGenerate from './ProjectFormGenerateBtn';
 import { FormEvent, useState } from 'react';
 import ProjectFormAmount from './ProjectFormAmount';
-import CommentsDisplay from '../CommentsDisplay';
 import styles from './index.module.scss';
 
 const darkTheme = createTheme({
@@ -18,20 +17,21 @@ const darkTheme = createTheme({
 
 const ProjectForm = () => {
   const [isWorking, setWorking] = useState(false);
-  const [comments, setComments] = useState<string>();
+  const [jobId, setJobId] = useState<string>();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const formObject = Object.fromEntries(formData.entries());
     setWorking(true);
+    console.log(formObject);
     const response = await fetch('/api/comments', {
       method: 'POST',
       body: JSON.stringify(formObject),
     });
     if (response.ok) {
-      const commentsData = await response.json();
-      setComments(commentsData);
+      const jobId = await response.json();
+      setJobId(jobId);
       setWorking(false);
     }
   };
@@ -50,9 +50,8 @@ const ProjectForm = () => {
           </DropdownSection>
         </div>
         <ProjectFormAmount />
-        <ProjectFormGenerate working={isWorking} />
+        <ProjectFormGenerate working={isWorking} jobId={jobId} />
       </form>
-      {comments && <CommentsDisplay comments={comments} />}
     </ThemeProvider>
   );
 };
