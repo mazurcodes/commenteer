@@ -5,19 +5,27 @@ import { prepComments } from '@/utils/commentUtils';
 import { Timestamp } from 'firebase/firestore';
 import { NextResponse } from 'next/server';
 
+type CommentsBody = {
+  name: string;
+  positive: number;
+  negative: number;
+  neutral: number;
+  questions: number;
+  amount: number;
+  description?: string;
+};
+
 export async function POST(request: Request) {
-  const { name } = await request.json();
-  const comments = await getComments(request);
-  const preparedComments = prepComments(comments, name);
-  const jobData = await prepJobData(request, preparedComments);
+  const body: CommentsBody = await request.json();
+  const comments = await getComments(body);
+  const preparedComments = prepComments(comments, body.name);
+  const jobData = await prepJobData(body, preparedComments);
   const jobId = await createJob(jobData);
   return NextResponse.json(jobId);
 }
 
-async function getComments(request: Request) {
-  const { positive, negative, neutral, questions, amount } =
-    await request.json();
-
+async function getComments(body: CommentsBody) {
+  const { positive, negative, neutral, questions, amount } = body;
   const positiveComments = await getRandomCommentsOfType(
     CommentType.POSITIVE,
     calculateAmount(amount, positive)
@@ -44,11 +52,11 @@ async function getComments(request: Request) {
 }
 
 async function prepJobData(
-  request: Request,
+  body: CommentsBody,
   comments: string
 ): Promise<JobData> {
   const { name, description, positive, negative, neutral, questions, amount } =
-    await request.json();
+    body;
   return {
     name,
     description,
