@@ -1,10 +1,21 @@
 import { CommentType } from '@/data/constants';
-import { getRandomCommentsOfType } from '@/firebase/crudUtils';
+import { createJob, getRandomCommentsOfType } from '@/firebase/crudUtils';
+import { JobData } from '@/types';
 import { prepComments } from '@/utils/commentUtils';
+import { Timestamp } from 'firebase/firestore';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-  const { name, positive, negative, neutral, questions, amount } =
+  const { name } = await request.json();
+  const comments = await getComments(request);
+  const preparedComments = prepComments(comments, name);
+  const jobData = await prepJobData(request, preparedComments);
+  const jobId = await createJob(jobData);
+  return NextResponse.json(jobId);
+}
+
+async function getComments(request: Request) {
+  const { positive, negative, neutral, questions, amount } =
     await request.json();
 
   const positiveComments = await getRandomCommentsOfType(
@@ -24,16 +35,33 @@ export async function POST(request: Request) {
     calculateAmount(amount, questions)
   );
 
-  const comments = prepComments(
-    [
-      ...positiveComments,
-      ...negativeComments,
-      ...neutralComments,
-      ...questionComments,
-    ],
-    name
-  );
-  return NextResponse.json(comments);
+  return [
+    ...positiveComments,
+    ...negativeComments,
+    ...neutralComments,
+    ...questionComments,
+  ];
+}
+
+async function prepJobData(
+  request: Request,
+  comments: string
+): Promise<JobData> {
+  const { name, description, positive, negative, neutral, questions, amount } =
+    await request.json();
+  return {
+    name,
+    description,
+    settings: {
+      positive,
+      negative,
+      neutral,
+      questions,
+    },
+    amount,
+    comments,
+    createdAt: Timestamp.now(),
+  };
 }
 
 function calculateAmount(amount: number, typeProcentage: number) {

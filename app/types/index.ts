@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 export type CommentType = 'positive' | 'neutral' | 'negative' | 'question';
 
 export type Comment = {
@@ -15,7 +17,6 @@ export type JobSettings = {
   neutral: number;
   negative: number;
   questions: number;
-  emojis: number;
 };
 
 export type JobData = {
@@ -25,5 +26,5 @@ export type JobData = {
   amount: number;
   comments: string;
   id?: string;
-  createdAt: number;
+  createdAt: Timestamp;
 };
