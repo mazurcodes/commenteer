@@ -4,7 +4,7 @@ import JobCompletedIcon from '@/assets/JobCompletedIcon.svg';
 import Link from 'next/link';
 
 type JobProps = {
-  id: string;
+  id: string | undefined;
   name: string;
 };
 
