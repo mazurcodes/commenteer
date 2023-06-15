@@ -1,6 +1,12 @@
 import { JobData } from '@/types';
-import { FirestoreError, collection, query, where } from 'firebase/firestore';
-import { useCollection } from 'react-firebase-hooks/firestore';
+import {
+  FirestoreError,
+  collection,
+  doc,
+  query,
+  where,
+} from 'firebase/firestore';
+import { useCollection, useDocumentOnce } from 'react-firebase-hooks/firestore';
 import { useEffect, useState } from 'react';
 import { db } from './clientApp';
 
@@ -22,4 +28,17 @@ export const useUserJobs = (
       );
   }, [value]);
   return [jobs, loading, error];
+};
+
+export const useJob = (
+  jobId = ''
+): [JobData | undefined, boolean, FirestoreError | undefined] => {
+  const [job, setJob] = useState<JobData>();
+  const docRef = doc(jobsCollection, jobId);
+  const [value, loading, error] = useDocumentOnce(docRef);
+
+  useEffect(() => {
+    value && setJob(value.data() as JobData);
+  }, [value]);
+  return [job, loading, error];
 };
