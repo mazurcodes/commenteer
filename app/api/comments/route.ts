@@ -16,7 +16,7 @@ type CommentsBody = {
 };
 
 export async function POST(request: Request) {
-  const body: CommentsBody = await request.json();
+  const body = await request.json();
   const comments = await getComments(body);
   const preparedComments = prepComments(comments, body.name);
   const jobData = await prepJobData(body, preparedComments);
@@ -59,7 +59,7 @@ async function prepJobData(
     body;
   return {
     name,
-    description,
+    description: description || '',
     settings: {
       positive,
       negative,
