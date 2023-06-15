@@ -85,6 +85,22 @@ export const createJob = async (jobData: JobData): Promise<string> => {
   }
 };
 
+export const getUserJobs = async (
+  userId: string | null
+): Promise<JobData[]> => {
+  if (!userId) return [];
+  try {
+    const q = query(jobsCollection, where('ownerId', '==', userId));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(
+      (doc) => ({ ...doc.data(), id: doc.id } as JobData)
+    );
+  } catch (error) {
+    console.error('Error getting comments:', error);
+    throw new Error('Failed to get comments');
+  }
+};
+
 // export const createComment = async (comment: Comment): Promise<string> => {
 //   try {
 //     const docRef = await addDoc(commentsCollection, comment);
@@ -135,16 +151,6 @@ export const createJob = async (jobData: JobData): Promise<string> => {
 //     toast.error(`Error deleting gift: ${error}`);
 //     throw new Error('Failed to delete gift');
 //   }
-// };
-
-// export const useGift = (
-//   giftId = ''
-// ): [GiftDataType | undefined, boolean, FirestoreError | undefined] => {
-//   const [value, loading, error] = useDocumentOnce(
-//     doc(commentsCollection, giftId)
-//   );
-//   const gift = value?.data();
-//   return [gift as GiftDataType, loading, error];
 // };
 
 // export const deleteUsersGifts = async (ownerEmail: string) => {
