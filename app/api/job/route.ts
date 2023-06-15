@@ -6,6 +6,7 @@ import { Timestamp } from 'firebase/firestore';
 import { NextResponse } from 'next/server';
 
 type CommentsBody = {
+  ownerId: string;
   name: string;
   positive: number;
   negative: number;
@@ -55,9 +56,18 @@ async function prepJobData(
   body: CommentsBody,
   comments: string
 ): Promise<JobData> {
-  const { name, description, positive, negative, neutral, questions, amount } =
-    body;
+  const {
+    ownerId,
+    name,
+    description,
+    positive,
+    negative,
+    neutral,
+    questions,
+    amount,
+  } = body;
   return {
+    ownerId,
     name,
     description: description || '',
     settings: {

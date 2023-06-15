@@ -8,6 +8,7 @@ import ProjectFormGenerate from './ProjectFormGenerateBtn';
 import { FormEvent, useState } from 'react';
 import ProjectFormAmount from './ProjectFormAmount';
 import styles from './index.module.scss';
+import { auth } from '@/firebase/clientApp';
 
 const darkTheme = createTheme({
   palette: {
@@ -26,7 +27,7 @@ const ProjectForm = () => {
     setWorking(true);
     const response = await fetch('/api/job', {
       method: 'POST',
-      body: JSON.stringify(formObject),
+      body: JSON.stringify({ ...formObject, ownerId: auth.currentUser?.uid }),
     });
     if (response.ok) {
       const jobId = await response.json();

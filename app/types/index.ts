@@ -20,11 +20,12 @@ export type JobSettings = {
 };
 
 export type JobData = {
+  ownerId: string;
   name: string;
   description?: string;
   settings: JobSettings;
   amount: number;
   comments: string;
-  id?: string;
   createdAt: Timestamp;
+  id?: string;
 };
