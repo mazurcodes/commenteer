@@ -24,7 +24,7 @@ const ProjectForm = () => {
     const formData = new FormData(event.target as HTMLFormElement);
     const formObject = Object.fromEntries(formData.entries());
     setWorking(true);
-    const response = await fetch('/api/comments', {
+    const response = await fetch('/api/job', {
       method: 'POST',
       body: JSON.stringify(formObject),
     });
