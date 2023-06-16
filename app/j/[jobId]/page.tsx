@@ -1,6 +1,5 @@
 'use client';
 import { auth } from '@/firebase/clientApp';
-import { useJob } from '@/firebase/crudHooks';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import styles from './page.module.scss';
 import Nav from '@/components/Nav';
