@@ -101,6 +101,19 @@ export const getUserJobs = async (
   }
 };
 
+export const deleteUsersJobs = async (userId: string | undefined) => {
+  if (!userId) return;
+  const batch = writeBatch(db);
+  const jobs = await getUserJobs(userId);
+
+  jobs.forEach((job) => {
+    const docRef = doc(jobsCollection, job.id);
+    batch.delete(docRef);
+  });
+
+  batch.commit();
+};
+
 // export const createComment = async (comment: Comment): Promise<string> => {
 //   try {
 //     const docRef = await addDoc(commentsCollection, comment);
