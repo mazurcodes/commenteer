@@ -7,7 +7,6 @@ const defaultSettings = {
   neutral: 10,
   negative: 5,
   questions: 5,
-  emoji: 2,
 };
 
 const ProjectFormSettings = () => {
@@ -15,7 +14,6 @@ const ProjectFormSettings = () => {
   const [neutral, setNeutral] = useState(defaultSettings.neutral);
   const [negative, setNegative] = useState(defaultSettings.negative);
   const [questions, setQuestions] = useState(defaultSettings.questions);
-  const [emoji, setEmoji] = useState(defaultSettings.emoji);
 
   const handlePositive = (pos: number) => {
     const max = 100 - (neutral + negative + questions);
@@ -139,30 +137,6 @@ const ProjectFormSettings = () => {
             value={questions}
             onChange={(event: Event, value: number | number[]) =>
               handleQuestions(value as number)
-            }
-          />
-        </Box>
-      </div>
-
-      {/* emoji */}
-      <div className={styles.controlWrapper}>
-        <div className={styles.controlHeader}>
-          <h3 className={styles.emojiColor}>Emoji</h3>
-          <span>{emoji}%</span>
-        </div>
-        <Box width="100%">
-          <Slider
-            tabIndex={7}
-            name="emoji"
-            size="small"
-            defaultValue={emoji}
-            aria-label="emoji"
-            valueLabelDisplay="off"
-            min={0}
-            max={5}
-            value={emoji}
-            onChange={(event: Event, value: number | number[]) =>
-              setEmoji(value as number)
             }
           />
         </Box>

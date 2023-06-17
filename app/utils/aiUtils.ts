@@ -7,7 +7,6 @@ export type CreateCompletionProps = {
   neutral: number;
   negative: number;
   questions: number;
-  emoji: number;
   amount: number;
 };
 
@@ -22,16 +21,8 @@ export const createCompletion = async (data: CreateCompletionProps) => {
 };
 
 export const createPrompt = (data: CreateCompletionProps) => {
-  const {
-    name,
-    positive,
-    neutral,
-    negative,
-    questions,
-    emoji,
-    amount,
-    description,
-  } = data;
+  const { name, positive, neutral, negative, questions, amount, description } =
+    data;
 
   return `I have created a youtube video about crypto project named ${name}.
   ${description && `This video is about ${description}.`}
@@ -40,7 +31,7 @@ export const createPrompt = (data: CreateCompletionProps) => {
   Another ${neutral}% of the comments to be neutral.
   Another ${negative}% of the comments to be negative.
   Another ${questions}% of the comments to be questions.
-  In ${emoji}% of the comments you can use emojis.
+  In 2% of the comments you can use emojis.
   Wherever you would use name of the project use '__' instead. 
   In your response every comment should be in the new line.
   Encapsulate every comment in [] brackets.
@@ -51,7 +42,6 @@ export const createPrompt = (data: CreateCompletionProps) => {
 
 export type CreatePositiveCompletionProps = {
   name: string;
-  emoji: number;
   amount: number;
 };
 
@@ -68,11 +58,11 @@ export const createPositiveCompletion = async (
 };
 
 export const createPositivePrompt = (data: CreatePositiveCompletionProps) => {
-  const { name, emoji, amount } = data;
+  const { name, amount } = data;
 
   return `I have created a youtube video about crypto project named ${name}.
   Please generate ${amount} positive viewer comments on the video.
-  In ${emoji}% of the comments you can use emojis.
+  In 2% of the comments you can use emojis.
   Wherever you would use name of the project use '__' instead. 
   In your response every comment should be in the new line.
   Encapsulate every comment in [] brackets.
@@ -94,12 +84,12 @@ export const createNeutralCompletion = async (
 };
 
 export const createNeutralPrompt = (data: CreatePositiveCompletionProps) => {
-  const { name, emoji, amount } = data;
+  const { name,  amount } = data;
 
   return `I have created a youtube video about crypto project named ${name}.
   Please generate ${amount} random viewer comments on the video.
   I need 100% of the comments to be neutral.
-  In ${emoji}% of the comments you can use emojis.
+  In 2% of the comments you can use emojis.
   Wherever you would use name of the project use '__' instead. 
   In your response every comment should be in the new line.
   Encapsulate every comment in [] brackets.
@@ -121,12 +111,12 @@ export const createNegativeCompletion = async (
 };
 
 export const createNegativePrompt = (data: CreatePositiveCompletionProps) => {
-  const { name, emoji, amount } = data;
+  const { name, amount } = data;
 
   return `I have created a youtube video about crypto project named ${name}.
   Please generate ${amount} negative viewer comments on the video.
   I need 100% of the comments to be negative.
-  In ${emoji}% of the comments you can use emojis.
+  In 2% of the comments you can use emojis.
   Wherever you would use name of the project use '__' instead. 
   In your response every comment should be in the new line.
   Encapsulate every comment in [] brackets.
