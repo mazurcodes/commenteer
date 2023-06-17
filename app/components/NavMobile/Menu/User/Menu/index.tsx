@@ -10,7 +10,10 @@ import { deleteUsersJobs } from '@/firebase/crudUtils';
 const UserMenu = () => {
   return (
     <div className={styles.menu}>
-      <button className={styles.button} onClick={() => alert('clearing jobs')}>
+      <button
+        className={styles.button}
+        onClick={() => alert('help and faq display')}
+      >
         <Image
           src={HelpIcon}
           height={20}

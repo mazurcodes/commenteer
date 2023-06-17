@@ -11,20 +11,25 @@ const JobDisplay = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  return (
-    <div className={styles.wrapper}>
-      <div>
-        <FieldDisplay description="Project name:" content={job?.name} />
-        {job?.description && (
-          <FieldDisplay description="Description:" content={job?.description} />
-        )}
-        <FieldDisplay description="Settings:">
-          <JobSettings settings={job?.settings} />
-        </FieldDisplay>
+  if (job)
+    return (
+      <div className={styles.wrapper}>
+        <div>
+          <FieldDisplay description="Project name:" content={job?.name} />
+          {job?.description && (
+            <FieldDisplay
+              description="Description:"
+              content={job?.description}
+            />
+          )}
+          <FieldDisplay description="Settings:">
+            <JobSettings settings={job?.settings} />
+          </FieldDisplay>
+        </div>
+        <CommentsDisplay comments={job?.comments} />
       </div>
-      <CommentsDisplay comments={job?.comments} />
-    </div>
-  );
+    );
+  return <div className={styles.center}>No job to show :(</div>;
 };
 
 export default JobDisplay;
