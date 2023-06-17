@@ -1,0 +1,9 @@
+.wrapper {
+  @media (min-width: 1000px) {
+    display: flex;
+    gap: 50px;
+    * {
+      flex: 1;
+    }
+  }
+}
