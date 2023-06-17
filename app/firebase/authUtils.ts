@@ -12,6 +12,7 @@ import {
 } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import { auth } from './clientApp';
+import { deleteUsersJobs } from './crudUtils';
 
 const getCredential = (userPassword: string) => {
   if (auth.currentUser?.email)
@@ -111,6 +112,7 @@ export const useDeleteCurrentUser = (): [
 
     if (userCredential) {
       setIsDeleted(await deleteCurrentUser());
+      deleteUsersJobs(userCredential.user.uid);
     }
   };
 
