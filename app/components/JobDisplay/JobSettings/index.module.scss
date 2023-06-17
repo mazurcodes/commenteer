@@ -1,0 +1,17 @@
+.settingsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .setting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .faceIcon {
+    font-size: 30px;
+    line-height: 20px;
+    color: #fff;
+  }
+}
