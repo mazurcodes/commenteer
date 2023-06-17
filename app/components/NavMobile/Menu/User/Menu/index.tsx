@@ -5,6 +5,7 @@ import ClearJobsIcon from '@/assets/ClearJobsIcon.svg';
 import HelpIcon from '@/assets/HelpIcon.svg';
 import { auth } from '@/firebase/clientApp';
 import Settings from './Settings';
+import { deleteUsersJobs } from '@/firebase/crudUtils';
 
 const UserMenu = () => {
   return (
@@ -20,7 +21,10 @@ const UserMenu = () => {
         Help & FAQ
       </button>
       <SectionDivider />
-      <button className={styles.button} onClick={() => alert('clearing jobs')}>
+      <button
+        className={styles.button}
+        onClick={() => deleteUsersJobs(auth.currentUser?.uid)}
+      >
         <Image
           src={ClearJobsIcon}
           height={20}
