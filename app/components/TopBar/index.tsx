@@ -3,7 +3,7 @@ import styles from '@/components/TopBar/index.module.scss';
 import Image from 'next/image';
 import MenuIcon from '@/assets/MenuIcon.svg';
 import { useState } from 'react';
-import NavMobile from '../NavMobile';
+import NavMobile from '../Nav/NavMobile';
 
 const TopBar = () => {
   const [isOpen, setOpen] = useState(false);
