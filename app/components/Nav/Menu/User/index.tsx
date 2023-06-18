@@ -1,17 +1,20 @@
 import { auth } from '@/firebase/clientApp';
 import styles from './index.module.scss';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import UserIcon from '@/assets/UserIcon.svg';
 import ArrowIcon from '@/assets/ArrowIcon.svg';
 import UserMenu from './Menu';
 import { shortEmailAddress } from '@/utils/emailUtils';
+import { useTriggerOnBlur } from '@/utils/hooks';
 
 const MenuUser = () => {
   const [isOpen, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useTriggerOnBlur(ref, () => setOpen(false));
 
   return (
-    <div className={styles.userMenu}>
+    <div className={styles.userMenu} ref={ref}>
       <div className={!isOpen ? styles.hidden : undefined}>
         <UserMenu />
       </div>
