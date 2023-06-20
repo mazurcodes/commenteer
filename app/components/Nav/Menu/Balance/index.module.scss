@@ -1,5 +1,5 @@
 .balance {
-  padding: 18px 0 10px;
+  padding: 10px;
   border-top: 1px solid #585963;
 }
 
@@ -8,12 +8,27 @@
   background-color: aqua;
 }
 
-.rechargeBtn {
+.balanceBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
+  padding: 10px 10px;
   border: none;
+  border-radius: 6px;
   background-color: inherit;
   text-align: left;
   font-size: 14px;
+
+  &:hover {
+    background-color: #474747;
+  }
+}
+
+.buttonLeft {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .hidden {
