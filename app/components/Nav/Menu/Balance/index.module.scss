@@ -1,11 +1,7 @@
 .balance {
-  padding: 10px;
+  padding: 5px 10px;
   border-top: 1px solid #585963;
-}
-
-.recharge {
-  height: 200px;
-  background-color: aqua;
+  position: relative;
 }
 
 .balanceBtn {
@@ -19,13 +15,15 @@
   background-color: inherit;
   text-align: left;
   font-size: 14px;
+  text-decoration: none;
+  color: #d7d7d7;
 
   &:hover {
     background-color: #474747;
   }
 }
 
-.buttonLeft {
+.buttonSideLeft {
   display: flex;
   gap: 10px;
   align-items: center;
