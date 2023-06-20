@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import styles from './index.module.scss';
 import Image from 'next/image';
-import ArrowIcon from '@/assets/ArrowIcon.svg';
 import BalanceIcon from '@/assets/BalanceIcon.svg';
 
 const NavMenuBalance = () => {
