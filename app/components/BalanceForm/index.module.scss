@@ -1,10 +1,33 @@
+.wrapper {
+  max-width: 320px;
+
+  h1,
+  h2 {
+    text-align: center;
+  }
+
+  h1 {
+    padding: 20px;
+    font-size: 16px;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+}
 .wrapperRow {
   display: flex;
   justify-content: space-around;
+  padding: 33px 0 66px;
+}
+
+.currencySymbol {
+  font-size: 16px;
 }
 
 .buttonAmount {
   border: 1px solid #585963;
+  border-radius: 5px;
   font-size: 20px;
   font-weight: 500;
   width: 80px;
@@ -17,8 +40,45 @@
   }
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  gap: 35px;
+}
+
+.description {
+  width: 100%;
+
+  p {
+    font-size: 14px;
+    color: #696b76;
+    padding-bottom: 10px;
+  }
+}
+
+.dupa {
+  position: relative;
+  width: 100%;
+
+  &::after {
+    content: '$';
+    position: absolute;
+    top: 1px;
+    right: 0px;
+    z-index: 10;
+    background-color: #393a42;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .inputAmount {
-  width: 320px;
+  width: 100%;
   height: 50px;
   background-color: #393a42;
   border: none;
@@ -26,6 +86,52 @@
   font-size: 14px;
 }
 
+.addFundsBtn {
+  width: 100%;
+  height: 50px;
+  background-color: #2c2c2c;
+  border: 1px solid #585963;
+  border-radius: 5px;
+}
+
 .center {
   text-align: center;
+}
+
+.powered {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  p {
+    font-size: 12px;
+  }
+}
+
+.history {
+  padding: 40px 0 20px;
+  color: #696b76;
+  font-size: 14px;
+}
+
+.historyRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding-bottom: 10px;
+
+  p {
+    font-size: 14px;
+    color: #d7d7d7;
+  }
+}
+
+.historyAmount {
+  width: 40px;
+}
+
+.historyName {
+  flex: 1;
+  padding-left: 10px;
 }
