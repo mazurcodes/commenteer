@@ -1,4 +1,12 @@
 .wrapper {
+  @media (min-width: 1000px) {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.wrapperBalance {
+  flex: 1;
   max-width: 320px;
 
   h1,
@@ -7,7 +15,7 @@
   }
 
   h1 {
-    padding: 20px;
+    padding-bottom: 20px;
     font-size: 16px;
   }
 
@@ -46,6 +54,7 @@
   align-items: center;
   text-align: left;
   gap: 35px;
+  padding-bottom: 40px;
 }
 
 .description {
@@ -108,8 +117,13 @@
   }
 }
 
+.historyWrapper {
+  flex: 1;
+  max-width: 320px;
+}
+
 .history {
-  padding: 40px 0 20px;
+  padding-bottom: 20px;
   color: #696b76;
   font-size: 14px;
 }
