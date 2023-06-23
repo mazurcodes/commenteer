@@ -143,8 +143,9 @@ export const createBalance = async (
 
 export const addFundsToBalance = async (
   userId: string,
-  amount: number
+  amount = 0
 ): Promise<void> => {
+  if (amount === 0) return;
   try {
     const balanceRef = doc(db, 'balance', userId);
     const balanceSnap = await getDoc(balanceRef);
@@ -162,10 +163,8 @@ export const addFundsToBalance = async (
   }
 };
 
-export const deductFundsFromBalance = async (
-  userId: string,
-  amount: number
-) => {
+export const deductFundsFromBalance = async (userId: string, amount = 0) => {
+  if (amount === 0) return;
   try {
     const balanceRef = doc(db, 'balance', userId);
     const balanceSnap = await getDoc(balanceRef);

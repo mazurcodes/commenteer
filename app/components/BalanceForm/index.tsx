@@ -5,10 +5,17 @@ import MinusIcon from '@/assets/HistoryMinusIcon.svg';
 import PlusIcon from '@/assets/HistoryPlusIcon.svg';
 import { useBalance } from '@/firebase/crudHooks';
 import { auth } from '@/firebase/clientApp';
+import { FormEvent, useState } from 'react';
+import { addFundsToBalance } from '@/firebase/crudUtils';
 
 const BalanceForm = () => {
-  //TODO: create CRUD function to retrieve the balance from the database
   const [balance, loading, error] = useBalance(auth.currentUser?.uid);
+  const [amount, setAmount] = useState<number>();
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    auth.currentUser && addFundsToBalance(auth.currentUser?.uid, amount);
+  };
 
   if (loading) {
     return (
@@ -34,17 +41,17 @@ const BalanceForm = () => {
           {balance?.amount} <span className={styles.currencySymbol}>$</span>
         </h2>
         <div className={styles.wrapperRow}>
-          <button className={styles.buttonAmount}>
+          <button className={styles.buttonAmount} onClick={() => setAmount(1)}>
             <p>1 $</p>
           </button>
-          <button className={styles.buttonAmount}>
+          <button className={styles.buttonAmount} onClick={() => setAmount(2)}>
             <p>2 $</p>
           </button>
-          <button className={styles.buttonAmount}>
+          <button className={styles.buttonAmount} onClick={() => setAmount(5)}>
             <p>5 $</p>
           </button>
         </div>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <label htmlFor="amount" className={styles.description}>
             <p>Add to your balance</p>
             <div className={styles.dupa}>
@@ -53,6 +60,8 @@ const BalanceForm = () => {
                 id="amount"
                 className={styles.inputAmount}
                 required
+                value={amount}
+                onChange={(e) => setAmount(+e.target.value)}
               />
             </div>
           </label>
