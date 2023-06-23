@@ -3,15 +3,35 @@ import styles from './index.module.scss';
 import StripeIcon from '@/assets/StripeIcon.svg';
 import MinusIcon from '@/assets/HistoryMinusIcon.svg';
 import PlusIcon from '@/assets/HistoryPlusIcon.svg';
+import { useBalance } from '@/firebase/crudHooks';
+import { auth } from '@/firebase/clientApp';
 
 const BalanceForm = () => {
   //TODO: create CRUD function to retrieve the balance from the database
+  const [balance, loading, error] = useBalance(auth.currentUser?.uid);
+
+  if (loading) {
+    return (
+      <div className={styles.center}>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.center}>
+        <p>Error: {error.message}</p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapperBalance}>
         <h1>Current balance</h1>
         <h2>
-          10 <span className={styles.currencySymbol}>$</span>
+          {balance?.amount} <span className={styles.currencySymbol}>$</span>
         </h2>
         <div className={styles.wrapperRow}>
           <button className={styles.buttonAmount}>

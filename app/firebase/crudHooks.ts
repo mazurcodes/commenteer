@@ -50,7 +50,9 @@ export const useJob = (
 //********************************** Balance *********************************
 const balanceCollection = collection(db, 'balance');
 
-export const useBalance = (userId = '') => {
+export const useBalance = (
+  userId = ''
+): [Balance | undefined, boolean, FirestoreError | undefined] => {
   const [balance, setBalance] = useState<Balance>();
   const docRef = doc(balanceCollection, userId);
   const [value, loading, error] = useDocument(docRef);
