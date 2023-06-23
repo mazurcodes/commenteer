@@ -15,7 +15,7 @@ import { rngAscDesc } from './rngUtils';
 
 // TODO: research how to handle Error messages whithout crashing app
 
-// Firestore collection reference for comments
+//************************** COMMENTS **************************
 const commentsCollection = collection(db, 'comments');
 
 export const getRandomCommentsOfType = async (
@@ -72,7 +72,8 @@ export const createMultipleComments = async (data: Comment[]) => {
   batch.commit();
 };
 
-// Firestore collection reference for comments
+//******************************** JOBS ****************************
+
 const jobsCollection = collection(db, 'jobs');
 
 export const createJob = async (jobData: JobData): Promise<string> => {
@@ -112,6 +113,28 @@ export const deleteUsersJobs = async (userId: string | undefined) => {
   });
 
   batch.commit();
+};
+
+// ********************************* BALANCE ***********************
+const balanceCollection = collection(db, 'balance');
+
+export const createBalance = async (
+  userId: string,
+  initialBalance = 0
+): Promise<void> => {
+  if (!userId) return;
+  try {
+    const balanceObj = {
+      ownerId: userId,
+      currency: 'USD',
+      amount: initialBalance,
+      transactionHistory: [],
+    };
+    await addDoc(balanceCollection, balanceObj);
+  } catch (error) {
+    console.error('Failed to create balance:', error);
+    throw new Error('Failed to create balance');
+  }
 };
 
 // export const createComment = async (comment: Comment): Promise<string> => {
