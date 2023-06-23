@@ -1,9 +1,13 @@
+'use client';
 import styles from './index.module.scss';
 import Image from 'next/image';
 import BalanceIcon from '@/assets/BalanceIcon.svg';
 import Link from 'next/link';
+import { useBalance } from '@/firebase/crudHooks';
+import { auth } from '@/firebase/clientApp';
 
 const MenuBalance = () => {
+  const [balance, loading] = useBalance(auth.currentUser?.uid);
   return (
     <div className={styles.balance}>
       <Link className={styles.balanceBtn} href="/balance">
@@ -12,7 +16,8 @@ const MenuBalance = () => {
           <p>Balance</p>
         </div>
         <div className={styles.buttonSideRight}>
-          <p>10$</p>
+          {loading && <p>loading</p>}
+          {balance && <p>{balance?.amount}$</p>}
         </div>
       </Link>
     </div>
