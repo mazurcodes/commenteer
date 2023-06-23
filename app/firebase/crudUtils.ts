@@ -10,8 +10,10 @@ import {
   limit,
   addDoc,
   setDoc,
+  getDoc,
+  updateDoc,
 } from 'firebase/firestore';
-import type { Comment, CommentType, JobData } from '@/types';
+import type { Balance, Comment, CommentType, JobData } from '@/types';
 import { rngAscDesc } from './rngUtils';
 
 // TODO: research how to handle Error messages whithout crashing app
@@ -139,6 +141,51 @@ export const createBalance = async (
   }
 };
 
+export const addFundsToBalance = async (
+  userId: string,
+  amount: number
+): Promise<void> => {
+  try {
+    const balanceRef = doc(db, 'balance', userId);
+    const balanceSnap = await getDoc(balanceRef);
+    if (balanceSnap.exists()) {
+      const balanceData = balanceSnap.data() as Balance;
+      const currentBalance = balanceData.amount;
+      const newBalance = currentBalance + amount;
+      await updateDoc(balanceRef, { amount: newBalance });
+      console.log('Amount added successfully!');
+    } else {
+      console.log('Balance not found!');
+    }
+  } catch (error) {
+    console.error('Error adding funds to the balance:', error);
+  }
+};
+
+export const deductFundsFromBalance = async (
+  userId: string,
+  amount: number
+) => {
+  try {
+    const balanceRef = doc(db, 'balance', userId);
+    const balanceSnap = await getDoc(balanceRef);
+    if (balanceSnap.exists()) {
+      const userData = balanceSnap.data() as Balance;
+      const currentBalance = userData.amount;
+      if (currentBalance >= amount) {
+        const newBalance = currentBalance - amount;
+        await updateDoc(balanceRef, { amount: newBalance });
+        console.log('Amount deducted successfully!');
+      } else {
+        console.log('Insufficient balance!');
+      }
+    } else {
+      console.log('User not found!');
+    }
+  } catch (error) {
+    console.error('Error deducting amount from balance:', error);
+  }
+};
 // export const createComment = async (comment: Comment): Promise<string> => {
 //   try {
 //     const docRef = await addDoc(commentsCollection, comment);
