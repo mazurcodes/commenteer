@@ -1,4 +1,4 @@
-import { JobData } from '@/types';
+import { Balance, JobData } from '@/types';
 import {
   FirestoreError,
   collection,
@@ -6,7 +6,11 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { useCollection, useDocumentOnce } from 'react-firebase-hooks/firestore';
+import {
+  useCollection,
+  useDocument,
+  useDocumentOnce,
+} from 'react-firebase-hooks/firestore';
 import { useEffect, useState } from 'react';
 import { db } from './clientApp';
 
@@ -41,4 +45,18 @@ export const useJob = (
     value && setJob(value.data() as JobData);
   }, [value]);
   return [job, loading, error];
+};
+
+//********************************** Balance *********************************
+const balanceCollection = collection(db, 'balance');
+
+export const useBalance = (userId = '') => {
+  const [balance, setBalance] = useState<Balance>();
+  const docRef = doc(balanceCollection, userId);
+  const [value, loading, error] = useDocument(docRef);
+
+  useEffect(() => {
+    value && setBalance(value.data() as Balance);
+  }, [value]);
+  return [balance, loading, error];
 };

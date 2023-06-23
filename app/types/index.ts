@@ -29,3 +29,11 @@ export type JobData = {
   createdAt: Timestamp;
   id?: string;
 };
+
+export type Balance = {
+  ownerId: string;
+  amount: number;
+  currency: string;
+  transactionHistory: [];
+  // transactionHistory: Transaction[];
+};
