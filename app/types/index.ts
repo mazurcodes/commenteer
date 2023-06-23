@@ -34,6 +34,12 @@ export type Balance = {
   ownerId: string;
   amount: number;
   currency: string;
-  transactionHistory: [];
-  // transactionHistory: Transaction[];
+  transactionHistory: TransactionData[] | [];
+};
+
+export type TransactionData = {
+  amount: number;
+  type: 'recharge' | 'purchase' | 'refund';
+  timestamp: Timestamp;
+  name: string;
 };
