@@ -9,6 +9,7 @@ import {
   orderBy,
   limit,
   addDoc,
+  setDoc,
 } from 'firebase/firestore';
 import type { Comment, CommentType, JobData } from '@/types';
 import { rngAscDesc } from './rngUtils';
@@ -115,8 +116,9 @@ export const deleteUsersJobs = async (userId: string | undefined) => {
   batch.commit();
 };
 
-// ********************************* BALANCE ***********************
-const balanceCollection = collection(db, 'balance');
+// ****************************** BALANCE ****************************
+
+// const balanceCollection = collection(db, 'balance');
 
 export const createBalance = async (
   userId: string,
@@ -130,7 +132,7 @@ export const createBalance = async (
       amount: initialBalance,
       transactionHistory: [],
     };
-    await addDoc(balanceCollection, balanceObj);
+    await setDoc(doc(db, 'balance', userId), balanceObj);
   } catch (error) {
     console.error('Failed to create balance:', error);
     throw new Error('Failed to create balance');
