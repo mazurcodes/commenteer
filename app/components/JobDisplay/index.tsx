@@ -25,6 +25,7 @@ const JobDisplay = () => {
           <FieldDisplay description="Settings:">
             <JobSettings settings={job?.settings} />
           </FieldDisplay>
+          <FieldDisplay description="Amount:" content={job?.amount} />
         </div>
         <CommentsDisplay comments={job?.comments} />
       </div>

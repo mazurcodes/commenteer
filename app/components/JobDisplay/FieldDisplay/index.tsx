@@ -2,7 +2,7 @@ import styles from './index.module.scss';
 
 type FieldDisplayProps = {
   description: string | undefined;
-  content?: string | undefined;
+  content?: string | number | undefined;
   children?: React.ReactNode;
 };
 const FieldDisplay = ({
