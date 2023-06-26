@@ -1,10 +1,19 @@
+// import { Timestamp } from 'firebase/firestore';
+
 import { Timestamp } from 'firebase/firestore';
 
-export function convertTimestampToDate(timestamp: Timestamp) {
-  const isoDate = timestamp.toDate().toISOString();
-  return convertISOToGiftDate(isoDate);
+//TODO: check if Timestamp is not a object {seconds: 0, nanoseconds: 0}
+// for now timestamp is converted to this object ^^ coz of JSON.stringify
+export function convertTimestampToDate(timestamp: {
+  seconds: number;
+  nanoseconds: number;
+}) {
+  const isoDate = new Timestamp(timestamp.seconds, timestamp.nanoseconds)
+    .toDate()
+    .toISOString();
+  return convertISOToCommenteerDate(isoDate);
 }
 
-function convertISOToGiftDate(isoDate: string) {
+function convertISOToCommenteerDate(isoDate: string) {
   return isoDate.split('T')[0].split('-').reverse().join('.');
 }
