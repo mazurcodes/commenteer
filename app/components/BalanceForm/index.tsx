@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import styles from './index.module.scss';
 import StripeIcon from '@/assets/StripeIcon.svg';
-import MinusIcon from '@/assets/HistoryMinusIcon.svg';
-import PlusIcon from '@/assets/HistoryPlusIcon.svg';
 import { useBalance } from '@/firebase/crudHooks';
 import { auth } from '@/firebase/clientApp';
 import { FormEvent, useState } from 'react';
@@ -15,7 +13,8 @@ const BalanceForm = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    auth.currentUser && addFundsToBalance(auth.currentUser?.uid, amount);
+    auth.currentUser &&
+      addFundsToBalance(auth.currentUser?.uid, amount, 'Balance recharge');
   };
 
   if (loading) {
@@ -84,33 +83,6 @@ const BalanceForm = () => {
           </form>
         </div>
         <TransactionHistory history={balance.transactionHistory} />
-        <div className={styles.historyWrapper}>
-          <p className={styles.history}>History</p>
-          <div className={styles.historyRow}>
-            <Image src={MinusIcon} height={15} alt="Plus icon" />
-            <p className={styles.historyAmount}>
-              -0.56<span>$</span>
-            </p>
-            <p className={styles.historyName}>MarcEx Exchange</p>
-            <p className={styles.historyDate}>20.06.2023</p>
-          </div>
-          <div className={styles.historyRow}>
-            <Image src={MinusIcon} height={15} alt="Plus icon" />
-            <p className={styles.historyAmount}>
-              -1<span>$</span>
-            </p>
-            <p className={styles.historyName}>Dodge Coin</p>
-            <p className={styles.historyDate}>20.06.2023</p>
-          </div>
-          <div className={styles.historyRow}>
-            <Image src={PlusIcon} height={15} alt="Plus icon" />
-            <p className={styles.historyAmount}>
-              10<span>$</span>
-            </p>
-            <p className={styles.historyName}>Balance Recharge</p>
-            <p className={styles.historyDate}>20.06.2023</p>
-          </div>
-        </div>
       </div>
     );
   return <div>Not possible</div>;

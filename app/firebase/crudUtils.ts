@@ -12,8 +12,15 @@ import {
   setDoc,
   getDoc,
   updateDoc,
+  Timestamp,
 } from 'firebase/firestore';
-import type { Balance, Comment, CommentType, JobData } from '@/types';
+import type {
+  Balance,
+  Comment,
+  CommentType,
+  JobData,
+  TransactionData,
+} from '@/types';
 import { rngAscDesc } from './rngUtils';
 
 // TODO: research how to handle Error messages whithout crashing app
@@ -132,7 +139,14 @@ export const createBalance = async (
       ownerId: userId,
       currency: 'USD',
       amount: initialBalance,
-      transactionHistory: [],
+      transactionHistory: JSON.stringify([
+        {
+          name: 'Initial Balance',
+          amount: 1,
+          type: 'recharge',
+          timestamp: Timestamp.now(),
+        },
+      ]),
     };
     await setDoc(doc(db, 'balance', userId), balanceObj);
   } catch (error) {
@@ -143,17 +157,29 @@ export const createBalance = async (
 
 export const addFundsToBalance = async (
   userId: string,
-  amount = 0
+  amount = 0,
+  name: string
 ): Promise<void> => {
   if (amount === 0) return;
   try {
     const balanceRef = doc(db, 'balance', userId);
     const balanceSnap = await getDoc(balanceRef);
     if (balanceSnap.exists()) {
-      const balanceData = balanceSnap.data() as Balance;
-      const currentBalance = balanceData.amount;
-      const newBalance = currentBalance + amount;
-      await updateDoc(balanceRef, { amount: newBalance });
+      const balanceData = balanceSnap.data();
+      const currentAmount = balanceData.amount;
+      const currentHistory = JSON.parse(
+        balanceData.transactionHistory
+      ) as TransactionData[];
+
+      const newHistory = [
+        { name, amount, type: 'recharge', timestamp: Timestamp.now() },
+        ...currentHistory,
+      ] as TransactionData[];
+      const newBalance = {
+        amount: currentAmount + amount,
+        transactionHistory: JSON.stringify(newHistory),
+      };
+      await updateDoc(balanceRef, newBalance);
       console.log('Amount added successfully!');
     } else {
       console.log('Balance not found!');
