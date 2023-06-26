@@ -23,3 +23,7 @@ export function prepComments(comments: Comment[], projName: string): string {
   }, '');
   return commentsText;
 }
+
+export function countLinesInString(text = ''): number {
+  return text.split('\n').length;
+}
