@@ -12,10 +12,12 @@ type TransactionProps = {
 const Transaction = ({ data }: TransactionProps) => {
   return (
     <div className={styles.transactionRow}>
-      {data.type === 'recharge' ||
-        (data.type === 'refund' && (
-          <Image src={PlusIcon} height={15} alt="Plus icon" />
-        ))}
+      {data.type === 'recharge' && (
+        <Image src={PlusIcon} height={15} alt="Plus icon" />
+      )}
+      {data.type === 'refund' && (
+        <Image src={PlusIcon} height={15} alt="Plus icon" />
+      )}
       {data.type === 'purchase' && (
         <Image src={MinusIcon} height={15} alt="Minus icon" />
       )}
