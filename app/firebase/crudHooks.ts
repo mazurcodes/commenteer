@@ -58,7 +58,14 @@ export const useBalance = (
   const [value, loading, error] = useDocument(docRef);
 
   useEffect(() => {
-    value && setBalance(value.data() as Balance);
+    if (value) {
+      const data = value.data();
+      const balanceData = {
+        ...data,
+        transactionHistory: JSON.parse(data?.transactionHistory),
+      } as Balance;
+      setBalance(balanceData);
+    }
   }, [value]);
   return [balance, loading, error];
 };
