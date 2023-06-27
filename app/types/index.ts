@@ -1,3 +1,4 @@
+import { TransactionType } from '@/data/constants';
 import { Timestamp } from 'firebase/firestore';
 
 export type CommentType = 'positive' | 'neutral' | 'negative' | 'question';
@@ -34,12 +35,12 @@ export type Balance = {
   ownerId: string;
   amount: number;
   currency: string;
-  transactionHistory: TransactionData[] | [];
+  transactionHistory: TransactionData[] | string;
 };
 
 export type TransactionData = {
   amount: number;
-  type: 'recharge' | 'purchase' | 'refund';
+  type: TransactionType;
   timestamp: Timestamp;
   name: string;
 };

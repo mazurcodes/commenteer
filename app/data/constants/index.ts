@@ -4,3 +4,9 @@ export enum CommentType {
   NEUTRAL = 'neutral',
   QUESTION = 'question',
 }
+
+export enum TransactionType {
+  RECHAGE = 'recharge',
+  PURCHASE = 'purchase',
+  REFUND = 'refund',
+}
