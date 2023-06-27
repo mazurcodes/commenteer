@@ -4,8 +4,10 @@ import StripeIcon from '@/assets/StripeIcon.svg';
 import { useBalance } from '@/firebase/crudHooks';
 import { auth } from '@/firebase/clientApp';
 import { FormEvent, useState } from 'react';
-import { addFundsToBalance } from '@/firebase/crudUtils';
 import TransactionHistory from './TransactionHistory';
+import { TransactionType } from '@/data/constants';
+import { modifyBalance } from '@/firebase/crudUtils';
+import { TransactionData } from '@/types';
 
 const BalanceForm = () => {
   const [balance, loading, error] = useBalance(auth.currentUser?.uid);
@@ -14,7 +16,12 @@ const BalanceForm = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     auth.currentUser &&
-      addFundsToBalance(auth.currentUser?.uid, amount, 'Balance recharge');
+      modifyBalance(
+        auth.currentUser?.uid,
+        amount,
+        'Balance recharge',
+        TransactionType.RECHAGE
+      );
   };
 
   if (loading) {
@@ -82,7 +89,9 @@ const BalanceForm = () => {
             </div>
           </form>
         </div>
-        <TransactionHistory history={balance.transactionHistory} />
+        <TransactionHistory
+          history={balance.transactionHistory as TransactionData[]}
+        />
       </div>
     );
   return <div>Not possible</div>;

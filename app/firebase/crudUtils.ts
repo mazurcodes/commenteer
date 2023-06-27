@@ -22,6 +22,7 @@ import type {
   TransactionData,
 } from '@/types';
 import { rngAscDesc } from './rngUtils';
+import { TransactionType } from '@/data/constants';
 
 // TODO: research how to handle Error messages whithout crashing app
 
@@ -155,62 +156,137 @@ export const createBalance = async (
   }
 };
 
-export const addFundsToBalance = async (
+export const modifyBalance = async (
   userId: string,
   amount = 0,
-  name: string
+  name: string,
+  type: TransactionType
 ): Promise<void> => {
-  if (amount === 0) return;
+  if (amount <= 0) return;
   try {
     const balanceRef = doc(db, 'balance', userId);
     const balanceSnap = await getDoc(balanceRef);
-    if (balanceSnap.exists()) {
-      const balanceData = balanceSnap.data();
-      const currentAmount = balanceData.amount;
-      const currentHistory = JSON.parse(
-        balanceData.transactionHistory
-      ) as TransactionData[];
-
-      const newHistory = [
-        { name, amount, type: 'recharge', timestamp: Timestamp.now() },
-        ...currentHistory,
-      ] as TransactionData[];
-      const newBalance = {
-        amount: currentAmount + amount,
-        transactionHistory: JSON.stringify(newHistory),
-      };
-      await updateDoc(balanceRef, newBalance);
-      console.log('Amount added successfully!');
-    } else {
-      console.log('Balance not found!');
+    if (!balanceSnap.exists()) {
+      throw new Error('Balance not found!');
     }
+    const balanceData = balanceSnap.data() as Balance;
+    const newBalance =
+      type === TransactionType.PURCHASE
+        ? deductFromBalance(balanceData, amount, name, type)
+        : addToBalance(balanceData, amount, name, type);
+    await updateDoc(balanceRef, newBalance);
   } catch (error) {
-    console.error('Error adding funds to the balance:', error);
+    console.error('Error modifying the balance:', error);
   }
 };
 
-export const deductFundsFromBalance = async (userId: string, amount = 0) => {
-  if (amount === 0) return;
-  try {
-    const balanceRef = doc(db, 'balance', userId);
-    const balanceSnap = await getDoc(balanceRef);
-    if (balanceSnap.exists()) {
-      const userData = balanceSnap.data() as Balance;
-      const currentBalance = userData.amount;
-      if (currentBalance >= amount) {
-        const newBalance = currentBalance - amount;
-        await updateDoc(balanceRef, { amount: newBalance });
-        console.log('Amount deducted successfully!');
-      } else {
-        console.log('Insufficient balance!');
-      }
-    } else {
-      console.log('User not found!');
-    }
-  } catch (error) {
-    console.error('Error deducting amount from balance:', error);
+function addToBalance(
+  balance: Balance,
+  amount: number,
+  name: string,
+  type: TransactionType
+) {
+  const currentAmount = balance.amount;
+  const currentHistory = JSON.parse(
+    balance.transactionHistory as string
+  ) as TransactionData[];
+
+  const newHistory = [
+    { name, amount, type, timestamp: Timestamp.now() },
+    ...currentHistory,
+  ] as TransactionData[];
+  return {
+    amount: currentAmount + amount,
+    transactionHistory: JSON.stringify(newHistory),
+  };
+}
+
+function deductFromBalance(
+  balance: Balance,
+  amount: number,
+  name: string,
+  type: TransactionType
+) {
+  if (balance.amount < amount) {
+    throw new Error('Insufficient balance!');
   }
-};
+  const currentHistory = JSON.parse(
+    balance.transactionHistory as string
+  ) as TransactionData[];
+
+  const newHistory = [
+    { name, amount, type, timestamp: Timestamp.now() },
+    ...currentHistory,
+  ] as TransactionData[];
+  return {
+    amount: balance.amount - amount,
+    transactionHistory: JSON.stringify(newHistory),
+  };
+}
+
+// export const addFundsToBalance = async (
+//   userId: string,
+//   amount = 0,
+//   name: string,
+//   type: TransactionType
+// ): Promise<void> => {
+//   if (amount === 0) return;
+//   try {
+//     const balanceRef = doc(db, 'balance', userId);
+//     const balanceSnap = await getDoc(balanceRef);
+//     if (balanceSnap.exists()) {
+//       const balanceData = balanceSnap.data();
+//       const currentAmount = balanceData.amount;
+//       const currentHistory = JSON.parse(
+//         balanceData.transactionHistory
+//       ) as TransactionData[];
+
+//       const newHistory = [
+//         { name, amount, type, timestamp: Timestamp.now() },
+//         ...currentHistory,
+//       ] as TransactionData[];
+//       const newBalance = {
+//         amount: currentAmount + amount,
+//         transactionHistory: JSON.stringify(newHistory),
+//       };
+//       await updateDoc(balanceRef, newBalance);
+//       console.log('Amount added successfully!');
+//     } else {
+//       console.log('Balance not found!');
+//     }
+//   } catch (error) {
+//     console.error('Error adding funds to the balance:', error);
+//   }
+// };
+
+// export const deductFundsFromBalance = async (
+//   userId: string,
+//   amount = 0,
+//   name: string,
+//   type: TransactionType
+// ): Promise<void> => {
+//   if (amount === 0) return;
+//   try {
+//     const balanceRef = doc(db, 'balance', userId);
+//     const balanceSnap = await getDoc(balanceRef);
+//     if (balanceSnap.exists()) {
+//       const balanceData = balanceSnap.data() as Balance;
+//       const currentBalance = balanceData.amount;
+//       if (currentBalance >= amount) {
+//         const newBalance = currentBalance - amount;
+//         await updateDoc(balanceRef, { amount: newBalance });
+//         console.log('Amount deducted successfully!');
+//       } else {
+//         console.log('Insufficient balance!');
+//       }
+//     } else {
+//       console.log('User not found!');
+//     }
+//   } catch (error) {
+//     console.error('Error deducting amount from balance:', error);
+//   }
+// };
+
 // export const createComment = async (comment: Comment): Promise<string> => {
 //   try {
 //     const docRef = await addDoc(commentsCollection, comment);
