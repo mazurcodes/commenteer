@@ -1,7 +1,5 @@
-import { TransactionType } from '@/data/constants';
+import { CommentType, TransactionType } from '@/data/constants';
 import { Timestamp } from 'firebase/firestore';
-
-export type CommentType = 'positive' | 'neutral' | 'negative' | 'question';
 
 export type Comment = {
   type: CommentType;
