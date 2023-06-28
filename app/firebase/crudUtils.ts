@@ -14,15 +14,9 @@ import {
   updateDoc,
   Timestamp,
 } from 'firebase/firestore';
-import type {
-  Balance,
-  Comment,
-  CommentType,
-  JobData,
-  TransactionData,
-} from '@/types';
+import type { Balance, Comment, JobData, TransactionData } from '@/types';
 import { rngAscDesc } from './rngUtils';
-import { TransactionType } from '@/data/constants';
+import { CommentType, TransactionType } from '@/data/constants';
 
 // TODO: research how to handle Error messages whithout crashing app
 
