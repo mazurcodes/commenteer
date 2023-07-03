@@ -35,6 +35,7 @@ const ProjectForm = () => {
       setWorking(false);
     }
   };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -50,6 +51,8 @@ const ProjectForm = () => {
           </DropdownSection>
         </div>
         <ProjectFormAmount />
+        {/* TODO: add information how much it will cost and current balance*/}
+        {/* I think it will be in the amount component to not use shared state */}
         <ProjectFormGenerate working={isWorking} jobId={jobId} />
       </form>
     </ThemeProvider>

@@ -2,12 +2,13 @@ import Image from 'next/image';
 import styles from './index.module.scss';
 import StripeIcon from '@/assets/StripeIcon.svg';
 import { useBalance } from '@/firebase/crudHooks';
-import { auth } from '@/firebase/clientApp';
+import { auth, db } from '@/firebase/clientApp';
 import { FormEvent, useState } from 'react';
 import TransactionHistory from './TransactionHistory';
 import { TransactionType } from '@/data/constants';
 import { modifyBalance } from '@/firebase/crudUtils';
 import { TransactionData } from '@/types';
+import { onSnapshot, addDoc, collection } from 'firebase/firestore';
 
 const BalanceForm = () => {
   const [balance, loading, error] = useBalance(auth.currentUser?.uid);
@@ -22,6 +23,29 @@ const BalanceForm = () => {
         'Balance recharge',
         TransactionType.RECHAGE
       );
+  };
+
+  const loadCheckout = async () => {
+    if (auth.currentUser) {
+      const docRef = await addDoc(
+        collection(db, 'customers', auth.currentUser.uid, 'checkout_sessions'),
+        {
+          mode: 'payment',
+          price: 'price_1NPpnqEIhD4GWlLxAauumyR4',
+          success_url: window.location.origin,
+          cancel_url: window.location.origin,
+        }
+      );
+      onSnapshot(docRef, (snap) => {
+        const { error, url } = snap.data() as { error: Error; url: string };
+        if (error) {
+          alert(`An error occured: ${error.message}`);
+        }
+        if (url) {
+          window.location.assign(url);
+        }
+      });
+    }
   };
 
   if (loading) {
@@ -82,7 +106,18 @@ const BalanceForm = () => {
                 />
               </div>
             </label>
-            <button className={styles.addFundsBtn}>Add funds</button>
+            <button
+              className={styles.addFundsBtn}
+              onClick={() => loadCheckout()}
+            >
+              Add funds
+            </button>
+            {/* <Link
+              href="https://buy.stripe.com/test_7sI9E6fhgc2AgiA144"
+              className={styles.addFundsBtn}
+            >
+              Go to Stripe
+            </Link> */}
             <div className={styles.powered}>
               <p>powered by</p>
               <Image src={StripeIcon} height={25} alt="Stripe icon" />
