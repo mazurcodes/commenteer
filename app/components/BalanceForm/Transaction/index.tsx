@@ -23,7 +23,7 @@ const Transaction = ({ data }: TransactionProps) => {
         <Image src={MinusIcon} height={15} alt="Minus icon" />
       )}
       <p className={styles.transactionAmount}>
-        {data.amount}
+        {Number((data.amount / 100).toFixed(2))}
         <span>$</span>
       </p>
       <p className={styles.transactionName}>{data.name}</p>
