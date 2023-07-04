@@ -1,17 +1,14 @@
-import { TransactionData } from '@/types';
+'use client';
+import { useTransactionHistory } from '@/firebase/crudHooks';
 import Transaction from '../Transaction';
 import styles from './index.module.scss';
+import { auth } from '@/firebase/clientApp';
 
-type TransactionHistoryProps = {
-  history: TransactionData[];
-};
+const TransactionHistory = () => {
+  const [history] = useTransactionHistory(auth.currentUser?.uid);
 
-const TransactionHistory = ({ history }: TransactionHistoryProps) => {
-  const transactions = history.map((transactionData) => (
-    <Transaction
-      key={transactionData.timestamp.seconds}
-      data={transactionData}
-    />
+  const transactions = history?.map((transactionData) => (
+    <Transaction key={transactionData.created} data={transactionData} />
   ));
   return (
     <div className={styles.historyWrapper}>
