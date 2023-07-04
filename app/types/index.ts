@@ -30,15 +30,13 @@ export type JobData = {
 };
 
 export type Balance = {
-  ownerId: string;
   amount: number;
   currency: string;
-  transactionHistory: TransactionData[] | string;
 };
 
 export type TransactionData = {
   amount: number;
   type: TransactionType;
-  timestamp: Timestamp;
+  created: number;
   name: string;
 };
