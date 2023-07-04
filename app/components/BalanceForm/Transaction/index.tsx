@@ -3,7 +3,7 @@ import styles from './index.module.scss';
 import { TransactionData } from '@/types';
 import MinusIcon from '@/assets/HistoryMinusIcon.svg';
 import PlusIcon from '@/assets/HistoryPlusIcon.svg';
-import { convertTimestampToDate } from '@/utils/dateUtils';
+import { convertDateToCommenteerDate } from '@/utils/dateUtils';
 import { TransactionType } from '@/data/constants';
 
 type TransactionProps = {
@@ -28,7 +28,7 @@ const Transaction = ({ data }: TransactionProps) => {
       </p>
       <p className={styles.transactionName}>{data.name}</p>
       <p className={styles.transactionDate}>
-        {convertTimestampToDate(data.timestamp)}
+        {convertDateToCommenteerDate(data.created)}
       </p>
     </div>
   );
