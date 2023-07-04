@@ -29,3 +29,32 @@ export const createBalance = onDocumentCreated(
     });
   }
 );
+
+export const addToBalance = onDocumentCreated(
+  'customers/{customerId}/payments/{paymentId}',
+  (event) => {
+    const customerId = event.params.customerId;
+    const { amount, status } = event.data?.data() as {
+      amount: number;
+      status: string;
+    };
+
+    if (status === 'succeeded') {
+      const userBalanceDoc = db.collection('balance').doc(customerId);
+
+      userBalanceDoc.update({
+        amount: admin.firestore.FieldValue.increment(amount / 100),
+      });
+
+      userBalanceDoc
+        .collection('transaction-history')
+        .doc()
+        .set({
+          created: Date.now(),
+          type: 'recharge',
+          amount: amount / 100,
+          name: 'Recharge balance',
+        });
+    }
+  }
+);
