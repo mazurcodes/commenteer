@@ -18,13 +18,13 @@ export const createBalance = onDocumentCreated(
     const customerId = event.params.customerId;
     const userDoc = db.collection('balance').doc(customerId);
     userDoc.set({
-      amount: 1,
+      amount: 100,
       currency: 'USD',
     });
     userDoc.collection('transaction-history').doc().set({
       created: Date.now(),
       type: 'recharge',
-      amount: 1,
+      amount: 100,
       name: 'Initial balance',
     });
   }
@@ -43,18 +43,15 @@ export const addToBalance = onDocumentCreated(
       const userBalanceDoc = db.collection('balance').doc(customerId);
 
       userBalanceDoc.update({
-        amount: admin.firestore.FieldValue.increment(amount / 100),
+        amount: admin.firestore.FieldValue.increment(amount),
       });
 
-      userBalanceDoc
-        .collection('transaction-history')
-        .doc()
-        .set({
-          created: Date.now(),
-          type: 'recharge',
-          amount: amount / 100,
-          name: 'Recharge balance',
-        });
+      userBalanceDoc.collection('transaction-history').doc().set({
+        created: Date.now(),
+        type: 'recharge',
+        amount: amount,
+        name: 'Recharge balance',
+      });
     }
   }
 );
