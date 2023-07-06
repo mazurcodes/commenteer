@@ -21,6 +21,11 @@
   color: #d7d7d7;
   background-color: #393a42;
   border: none;
+  max-height: 300px;
+
+  @media (min-width: 1000px) {
+    max-height: 70vh;
+  }
 }
 
 .copyBtn {
