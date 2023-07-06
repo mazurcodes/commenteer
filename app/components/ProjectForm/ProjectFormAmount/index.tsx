@@ -1,12 +1,27 @@
 'use client';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { useBalance } from '@/firebase/crudHooks';
 import { auth } from '@/firebase/clientApp';
 
-const ProjectFormAmount = () => {
+type ProjectFormAmountProps = {
+  setBalanceOk: Dispatch<SetStateAction<boolean>>;
+};
+
+const ProjectFormAmount = ({ setBalanceOk }: ProjectFormAmountProps) => {
   const [amount, setAmount] = useState<number | string>('');
   const [balance] = useBalance(auth.currentUser?.uid);
+
+  useEffect(() => {
+    if (
+      balance &&
+      balance?.amount >= +((amount as number) * 0.002).toFixed(2)
+    ) {
+      setBalanceOk(true);
+    } else {
+      setBalanceOk(false);
+    }
+  });
 
   return (
     <div className={styles.wrapper}>

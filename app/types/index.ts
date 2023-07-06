@@ -24,6 +24,7 @@ export type JobData = {
   description?: string;
   settings: JobSettings;
   amount: number;
+  cost: number;
   comments: string;
   createdAt: Timestamp;
   id?: string;
