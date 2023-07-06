@@ -6,6 +6,8 @@ import { auth, db } from '@/firebase/clientApp';
 import TransactionHistory from './TransactionHistory';
 import { onSnapshot, addDoc, collection } from 'firebase/firestore';
 
+// test price: price_1NPpnqEIhD4GWlLxAauumyR4
+
 const BalanceForm = () => {
   const [balance, loading, error] = useBalance(auth.currentUser?.uid);
 
@@ -15,7 +17,7 @@ const BalanceForm = () => {
         collection(db, 'customers', auth.currentUser.uid, 'checkout_sessions'),
         {
           mode: 'payment',
-          price: 'price_1NPpnqEIhD4GWlLxAauumyR4',
+          price: 'price_1NQqUGEIhD4GWlLxBlySFvCn',
           success_url: window.location.origin,
           cancel_url: window.location.origin,
         }
