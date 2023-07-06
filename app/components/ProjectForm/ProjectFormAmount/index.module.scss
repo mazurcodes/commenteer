@@ -1,8 +1,8 @@
-$textColor: #d7d7d7;
-$inputBg: #393a42;
+.wrapper {
+  grid-area: amount;
+}
 
 .label {
-  grid-area: amount;
   display: flex;
   flex-direction: column;
   font-size: 14px;
@@ -21,4 +21,15 @@ $inputBg: #393a42;
   color: #d7d7d7;
   background-color: #393a42;
   border: none;
+}
+
+.cost {
+  padding: 5px 0 0;
+  color: #9d9d9d;
+  font-size: 14px;
+}
+
+.costValue {
+  color: #977777;
+  font-weight: 700;
 }

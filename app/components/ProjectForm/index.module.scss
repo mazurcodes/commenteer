@@ -16,7 +16,7 @@
 
   @media (min-width: 770px) {
     grid-template-columns: 7fr 0fr 7fr;
-    grid-template-rows: 75px auto 75px 60px;
+    grid-template-rows: 75px auto 100px 60px;
     grid-template-areas:
       'name . settings'
       'description . settings'
