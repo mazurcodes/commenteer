@@ -5,6 +5,7 @@ import MinusIcon from '@/assets/HistoryMinusIcon.svg';
 import PlusIcon from '@/assets/HistoryPlusIcon.svg';
 import { convertDateToCommenteerDate } from '@/utils/dateUtils';
 import { TransactionType } from '@/data/constants';
+import { shortenText } from '@/utils/textUtils';
 
 type TransactionProps = {
   data: TransactionData;
@@ -26,7 +27,7 @@ const Transaction = ({ data }: TransactionProps) => {
         {Number((data.amount / 100).toFixed(2))}
         <span>$</span>
       </p>
-      <p className={styles.transactionName}>{data.name}</p>
+      <p className={styles.transactionName}>{shortenText(data.name, 20)}</p>
       <p className={styles.transactionDate}>
         {convertDateToCommenteerDate(data.created)}
       </p>
