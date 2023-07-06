@@ -19,6 +19,7 @@ const darkTheme = createTheme({
 const ProjectForm = () => {
   const [isWorking, setWorking] = useState(false);
   const [jobId, setJobId] = useState<string>();
+  const [balanceOk, setBalanceOk] = useState(true);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,6 +36,7 @@ const ProjectForm = () => {
       setWorking(false);
     }
   };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -49,8 +51,14 @@ const ProjectForm = () => {
             <ProjectFormSettings />
           </DropdownSection>
         </div>
-        <ProjectFormAmount />
-        <ProjectFormGenerate working={isWorking} jobId={jobId} />
+        <ProjectFormAmount setBalanceOk={setBalanceOk} />
+        {/* TODO: add information how much it will cost and current balance */}
+        {/* I think it will be in the amount component to not use shared state */}
+        <ProjectFormGenerate
+          working={isWorking}
+          jobId={jobId}
+          disabled={!balanceOk}
+        />
       </form>
     </ThemeProvider>
   );

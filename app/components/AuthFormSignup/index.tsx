@@ -4,7 +4,6 @@ import { extractFirebaseErrorMessage } from '@/firebase/errorUtils';
 import { useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import styles from './index.module.scss';
-import { createBalance } from '@/firebase/crudUtils';
 
 const AuthFormSignup = () => {
   const [email, setEmail] = useState('');
@@ -18,8 +17,7 @@ const AuthFormSignup = () => {
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (password === passwordConfirm) {
-      const credential = await createUserWithEmailAndPassword(email, password);
-      credential && createBalance(credential.user.uid, 1);
+      await createUserWithEmailAndPassword(email, password);
     } else {
       setErrorUI("Passwords doesn't match");
     }

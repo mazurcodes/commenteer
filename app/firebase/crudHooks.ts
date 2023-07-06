@@ -1,8 +1,9 @@
-import { Balance, JobData } from '@/types';
+import { Balance, JobData, TransactionData } from '@/types';
 import {
   FirestoreError,
   collection,
   doc,
+  orderBy,
   query,
   where,
 } from 'firebase/firestore';
@@ -62,10 +63,36 @@ export const useBalance = (
       const data = value.data();
       const balanceData = {
         ...data,
-        transactionHistory: JSON.parse(data?.transactionHistory),
+        amount: Number((data?.amount / 100).toFixed(2)),
       } as Balance;
       setBalance(balanceData);
     }
   }, [value]);
   return [balance, loading, error];
+};
+
+//****************************** Transaction History ************************
+
+export const useTransactionHistory = (
+  userId = ''
+): [TransactionData[] | undefined, boolean, FirestoreError | undefined] => {
+  const [transactions, setTransactions] = useState<TransactionData[]>();
+  const userTransactionsCollection = collection(
+    db,
+    `balance`,
+    userId,
+    'transaction-history'
+  );
+  const q = query(userTransactionsCollection, orderBy('created', 'desc'));
+  const [value, loading, error] = useCollection(q);
+
+  useEffect(() => {
+    value &&
+      setTransactions(
+        value.docs.map((doc) => {
+          return { ...doc.data() } as TransactionData;
+        })
+      );
+  }, [value]);
+  return [transactions, loading, error];
 };

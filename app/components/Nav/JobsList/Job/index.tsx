@@ -2,6 +2,7 @@ import Image from 'next/image';
 import styles from './index.module.scss';
 import JobCompletedIcon from '@/assets/JobCompletedIcon.svg';
 import Link from 'next/link';
+import { shortenText } from '@/utils/textUtils';
 
 type JobProps = {
   id: string | undefined;
@@ -17,7 +18,7 @@ const Job = ({ id, name }: JobProps) => {
         height={15}
         alt="job completed icon"
       />
-      <p className={styles.jobName}>{name}</p>
+      <p className={styles.jobName}>{shortenText(name, 28)}</p>
     </Link>
   );
 };

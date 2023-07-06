@@ -13,6 +13,7 @@ type CommentsBody = {
   neutral: number;
   questions: number;
   amount: number;
+  cost: number;
   description?: string;
 };
 
@@ -65,18 +66,20 @@ async function prepJobData(
     neutral,
     questions,
     amount,
+    cost,
   } = body;
   return {
     ownerId,
     name,
     description: description || '',
     settings: {
-      positive,
-      negative,
-      neutral,
-      questions,
+      positive: +positive,
+      negative: +negative,
+      neutral: +neutral,
+      questions: +questions,
     },
-    amount,
+    amount: +amount,
+    cost: +cost * -100, // to cents and negative
     comments,
     createdAt: Timestamp.now(),
   };

@@ -2,26 +2,34 @@ import Image from 'next/image';
 import styles from './index.module.scss';
 import StripeIcon from '@/assets/StripeIcon.svg';
 import { useBalance } from '@/firebase/crudHooks';
-import { auth } from '@/firebase/clientApp';
-import { FormEvent, useState } from 'react';
+import { auth, db } from '@/firebase/clientApp';
 import TransactionHistory from './TransactionHistory';
-import { TransactionType } from '@/data/constants';
-import { modifyBalance } from '@/firebase/crudUtils';
-import { TransactionData } from '@/types';
+import { onSnapshot, addDoc, collection } from 'firebase/firestore';
 
 const BalanceForm = () => {
   const [balance, loading, error] = useBalance(auth.currentUser?.uid);
-  const [amount, setAmount] = useState<number>();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    auth.currentUser &&
-      modifyBalance(
-        auth.currentUser?.uid,
-        amount,
-        'Balance recharge',
-        TransactionType.RECHAGE
+  const loadCheckout = async () => {
+    if (auth.currentUser) {
+      const docRef = await addDoc(
+        collection(db, 'customers', auth.currentUser.uid, 'checkout_sessions'),
+        {
+          mode: 'payment',
+          price: 'price_1NPpnqEIhD4GWlLxAauumyR4',
+          success_url: window.location.origin,
+          cancel_url: window.location.origin,
+        }
       );
+      onSnapshot(docRef, (snap) => {
+        const { error, url } = snap.data() as { error: Error; url: string };
+        if (error) {
+          alert(`An error occured: ${error.message}`);
+        }
+        if (url) {
+          window.location.assign(url);
+        }
+      });
+    }
   };
 
   if (loading) {
@@ -49,49 +57,25 @@ const BalanceForm = () => {
             {balance?.amount} <span className={styles.currencySymbol}>$</span>
           </h2>
           <div className={styles.wrapperRow}>
-            <button
-              className={styles.buttonAmount}
-              onClick={() => setAmount(1)}
-            >
+            <button className={styles.buttonAmount}>
               <p>1 $</p>
             </button>
-            <button
-              className={styles.buttonAmount}
-              onClick={() => setAmount(2)}
-            >
+            <button className={styles.buttonAmount}>
               <p>2 $</p>
             </button>
-            <button
-              className={styles.buttonAmount}
-              onClick={() => setAmount(5)}
-            >
+            <button className={styles.buttonAmount}>
               <p>5 $</p>
             </button>
           </div>
-          <form className={styles.form} onSubmit={handleSubmit}>
-            <label htmlFor="amount" className={styles.description}>
-              <p>Add to your balance</p>
-              <div className={styles.dupa}>
-                <input
-                  type="number"
-                  id="amount"
-                  className={styles.inputAmount}
-                  required
-                  value={amount}
-                  onChange={(e) => setAmount(+e.target.value)}
-                />
-              </div>
-            </label>
-            <button className={styles.addFundsBtn}>Add funds</button>
-            <div className={styles.powered}>
-              <p>powered by</p>
-              <Image src={StripeIcon} height={25} alt="Stripe icon" />
-            </div>
-          </form>
+          <button className={styles.addFundsBtn} onClick={() => loadCheckout()}>
+            Add funds
+          </button>
+          <div className={styles.powered}>
+            <p>powered by</p>
+            <Image src={StripeIcon} height={25} alt="Stripe icon" />
+          </div>
         </div>
-        <TransactionHistory
-          history={balance.transactionHistory as TransactionData[]}
-        />
+        <TransactionHistory />
       </div>
     );
   return <div>Not possible</div>;

@@ -24,21 +24,20 @@ export type JobData = {
   description?: string;
   settings: JobSettings;
   amount: number;
+  cost: number;
   comments: string;
   createdAt: Timestamp;
   id?: string;
 };
 
 export type Balance = {
-  ownerId: string;
   amount: number;
   currency: string;
-  transactionHistory: TransactionData[] | string;
 };
 
 export type TransactionData = {
   amount: number;
   type: TransactionType;
-  timestamp: Timestamp;
+  created: number;
   name: string;
 };
