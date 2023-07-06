@@ -36,6 +36,11 @@ const ProjectFormAmount = () => {
         Current balance:{' '}
         <span className={styles.costValue}>{balance?.amount} $</span>
       </p>
+      <input
+        type="hidden"
+        name="cost"
+        value={((amount as number) * 0.002).toFixed(2)}
+      />
     </div>
   );
 };

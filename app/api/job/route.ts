@@ -13,6 +13,7 @@ type CommentsBody = {
   neutral: number;
   questions: number;
   amount: number;
+  cost: number;
   description?: string;
 };
 
@@ -65,6 +66,7 @@ async function prepJobData(
     neutral,
     questions,
     amount,
+    cost,
   } = body;
   return {
     ownerId,
@@ -77,6 +79,7 @@ async function prepJobData(
       questions,
     },
     amount,
+    cost,
     comments,
     createdAt: Timestamp.now(),
   };
