@@ -73,13 +73,13 @@ async function prepJobData(
     name,
     description: description || '',
     settings: {
-      positive,
-      negative,
-      neutral,
-      questions,
+      positive: +positive,
+      negative: +negative,
+      neutral: +neutral,
+      questions: +questions,
     },
-    amount,
-    cost,
+    amount: +amount,
+    cost: +cost * -100, // to cents and negative
     comments,
     createdAt: Timestamp.now(),
   };
