@@ -1,14 +1,12 @@
 import styles from './index.module.scss';
 import Image from 'next/image';
 import CopyIcon from '@/assets/CopyIcon.svg';
-import { countLinesInString } from '@/utils/commentUtils';
 
 type CompletionDisplayProps = {
   comments: string | undefined;
 };
 
 const CommentsDisplay = ({ comments }: CompletionDisplayProps) => {
-  const rows = countLinesInString(comments);
   const handleCopyAll = () => {
     comments && navigator.clipboard.writeText(comments);
   };
@@ -21,7 +19,7 @@ const CommentsDisplay = ({ comments }: CompletionDisplayProps) => {
           name="completion"
           value={comments}
           className={styles.textarea}
-          rows={rows + 10}
+          rows={50}
         />
         <button className={styles.copyBtn} onClick={handleCopyAll}>
           <Image
