@@ -124,10 +124,6 @@ export const useDeleteCurrentUser = (): [
   ];
 };
 
-//TODO: after deleting user delete all user gifts
-
-//TODO: useChangeEmail hook
-
 /**
  * Change email hook.
  *

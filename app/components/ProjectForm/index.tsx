@@ -52,8 +52,6 @@ const ProjectForm = () => {
           </DropdownSection>
         </div>
         <ProjectFormAmount setBalanceOk={setBalanceOk} />
-        {/* TODO: add information how much it will cost and current balance */}
-        {/* I think it will be in the amount component to not use shared state */}
         <ProjectFormGenerate
           working={isWorking}
           jobId={jobId}
