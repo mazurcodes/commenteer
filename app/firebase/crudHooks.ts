@@ -21,7 +21,11 @@ export const useUserJobs = (
   userId = ''
 ): [JobData[] | undefined, boolean, FirestoreError | undefined] => {
   const [jobs, setJobs] = useState<JobData[]>();
-  const q = query(jobsCollection, where('ownerId', '==', userId));
+  const q = query(
+    jobsCollection,
+    where('ownerId', '==', userId),
+    orderBy('createdAt', 'desc')
+  );
   const [value, loading, error] = useCollection(q);
 
   useEffect(() => {
