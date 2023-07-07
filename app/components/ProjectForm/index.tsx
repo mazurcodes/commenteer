@@ -9,6 +9,8 @@ import { FormEvent, useState } from 'react';
 import ProjectFormAmount from './ProjectFormAmount';
 import styles from './index.module.scss';
 import { auth } from '@/firebase/clientApp';
+import { JobData } from '@/types';
+import { deductFromBalance } from '@/firebase/crudUtils';
 
 const darkTheme = createTheme({
   palette: {
@@ -25,12 +27,17 @@ const ProjectForm = () => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const formObject = Object.fromEntries(formData.entries());
+    const jobData = {
+      ...formObject,
+      ownerId: auth.currentUser?.uid,
+    } as JobData;
     setWorking(true);
     const response = await fetch('/api/job', {
       method: 'POST',
-      body: JSON.stringify({ ...formObject, ownerId: auth.currentUser?.uid }),
+      body: JSON.stringify(jobData),
     });
     if (response.ok) {
+      await deductFromBalance(jobData);
       const jobId = await response.json();
       setJobId(jobId);
       setWorking(false);

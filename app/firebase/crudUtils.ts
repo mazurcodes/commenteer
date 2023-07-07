@@ -9,8 +9,10 @@ import {
   orderBy,
   limit,
   addDoc,
+  getDoc,
+  updateDoc,
 } from 'firebase/firestore';
-import type { Comment, JobData } from '@/types';
+import type { Balance, Comment, JobData } from '@/types';
 import { rngAscDesc } from './rngUtils';
 import { CommentType } from '@/data/constants';
 
@@ -114,6 +116,35 @@ export const deleteUsersJobs = async (userId: string | undefined) => {
   });
 
   batch.commit();
+};
+
+//*************************** Balance *************************** */
+
+export const deductFromBalance = async (job: JobData) => {
+  const { cost, name, ownerId } = job;
+
+  try {
+    const userBalanceDoc = doc(db, 'balance', ownerId);
+    const currentBalance = (await getDoc(userBalanceDoc)).data() as Balance;
+    const transactionHistory = collection(
+      userBalanceDoc,
+      'transaction-history'
+    );
+
+    await updateDoc(userBalanceDoc, {
+      amount: currentBalance.amount - cost * 100,
+    });
+
+    await addDoc(transactionHistory, {
+      created: Date.now(),
+      type: 'purchase',
+      amount: -cost * 100,
+      name,
+    });
+  } catch (error) {
+    console.error('Error deducting from balance:', error);
+    throw new Error('Failed to deduct from balance');
+  }
 };
 
 // export const createComment = async (comment: Comment): Promise<string> => {
