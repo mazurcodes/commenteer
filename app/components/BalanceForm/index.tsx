@@ -6,7 +6,6 @@ import { auth, db } from '@/firebase/clientApp';
 import TransactionHistory from './TransactionHistory';
 import { onSnapshot, addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
-import ButtonSpinner from '@/assets/ButtonSpinner.svg';
 import RedirectingScreen from './RedirectingScreen';
 import { StripePrices } from '@/data/constants';
 
@@ -85,46 +84,19 @@ const BalanceForm = () => {
               className={styles.buttonAmount}
               onClick={() => loadCheckout(StripePrices.TWO_DOLARS)}
             >
-              {loadingUI === StripePrices.TWO_DOLARS ? (
-                <Image
-                  src={ButtonSpinner}
-                  alt="Loading spinner"
-                  height={30}
-                  width={30}
-                />
-              ) : (
-                <p>2 $</p>
-              )}
+              <p>2 $</p>
             </button>
             <button
               className={styles.buttonAmount}
               onClick={() => loadCheckout(StripePrices.FIVE_DOLARS)}
             >
-              {loadingUI === StripePrices.FIVE_DOLARS ? (
-                <Image
-                  src={ButtonSpinner}
-                  alt="Loading spinner"
-                  height={23}
-                  width={23}
-                />
-              ) : (
-                <p>5 $</p>
-              )}
+              <p>5 $</p>
             </button>
             <button
               className={styles.buttonAmount}
               onClick={() => loadCheckout(StripePrices.TEN_DOLARS)}
             >
-              {loadingUI === StripePrices.TEN_DOLARS ? (
-                <Image
-                  src={ButtonSpinner}
-                  alt="Loading spinner"
-                  height={25}
-                  width={25}
-                />
-              ) : (
-                <p>10 $</p>
-              )}
+              <p>10 $</p>
             </button>
           </div>
           <p className={styles.balanceLabel}>or</p>
@@ -132,16 +104,7 @@ const BalanceForm = () => {
             className={styles.addFundsBtn}
             onClick={() => loadCheckout(StripePrices.CUSTOM)}
           >
-            {loadingUI === StripePrices.CUSTOM ? (
-              <Image
-                src={ButtonSpinner}
-                alt="Loading spinner"
-                height={25}
-                width={25}
-              />
-            ) : (
-              <p>Add custom amount</p>
-            )}
+            <p>Add custom amount</p>
           </button>
           <div className={styles.powered}>
             <p>powered by</p>
