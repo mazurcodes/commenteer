@@ -1,0 +1,21 @@
+.redirectingWrapper {
+  height: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 28px;
+  }
+
+  p {
+    font-size: 20px;
+    padding: 30px 0;
+  }
+
+  @media (min-width: 1000px) {
+    max-width: 100%;
+  }
+}
