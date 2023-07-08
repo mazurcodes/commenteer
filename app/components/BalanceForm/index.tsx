@@ -7,6 +7,7 @@ import TransactionHistory from './TransactionHistory';
 import { onSnapshot, addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
 import ButtonSpinner from '@/assets/ButtonSpinner.svg';
+import RedirectingScreen from './RedirectingScreen';
 
 // test price: price_1NPpnqEIhD4GWlLxAauumyR4
 // live price: price_1NQqUGEIhD4GWlLxBlySFvCn
@@ -15,7 +16,9 @@ import ButtonSpinner from '@/assets/ButtonSpinner.svg';
 // live preset 10$ price: price_1NRa0WEIhD4GWlLxok3ZtObp
 
 const BalanceForm = () => {
-  const [balance, loading, error] = useBalance(auth.currentUser?.uid);
+  const [balance, loadingBalance, errorBalance] = useBalance(
+    auth.currentUser?.uid
+  );
   const [loadingUI, setLoadingUI] = useState('');
 
   const loadCheckout = async (priceId: string) => {
@@ -51,7 +54,7 @@ const BalanceForm = () => {
     }
   };
 
-  if (loading) {
+  if (loadingBalance) {
     return (
       <div className={styles.center}>
         <p>Loading...</p>
@@ -59,13 +62,15 @@ const BalanceForm = () => {
     );
   }
 
-  if (error) {
+  if (errorBalance) {
     return (
       <div className={styles.center}>
-        <p>Error: {error.message}</p>
+        <p>Error: {errorBalance.message}</p>
       </div>
     );
   }
+
+  if (loadingUI) return <RedirectingScreen />;
 
   // Balance buttons as separate component
 
