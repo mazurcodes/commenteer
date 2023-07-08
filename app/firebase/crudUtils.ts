@@ -1,4 +1,4 @@
-import { db } from '@/firebase/clientApp';
+import { auth, db } from '@/firebase/clientApp';
 import {
   collection,
   getDocs,
@@ -11,6 +11,7 @@ import {
   addDoc,
   getDoc,
   updateDoc,
+  onSnapshot,
 } from 'firebase/firestore';
 import type { Balance, Comment, JobData } from '@/types';
 import { rngAscDesc } from './rngUtils';
@@ -144,6 +145,35 @@ export const deductFromBalance = async (job: JobData) => {
   } catch (error) {
     console.error('Error deducting from balance:', error);
     throw new Error('Failed to deduct from balance');
+  }
+};
+
+//***************************************** STRIPE ************************************/
+
+export const createCheckoutAndRedirect = async (priceId: string) => {
+  if (auth.currentUser) {
+    try {
+      const docRef = await addDoc(
+        collection(db, 'customers', auth.currentUser.uid, 'checkout_sessions'),
+        {
+          mode: 'payment',
+          price: priceId,
+          success_url: window.location.origin,
+          cancel_url: window.location.origin,
+        }
+      );
+      onSnapshot(docRef, (snap) => {
+        const { error, url } = snap.data() as { error: Error; url: string };
+        if (error) {
+          alert(`An error occured: ${error.message}`);
+        }
+        if (url) {
+          window.location.assign(url);
+        }
+      });
+    } catch (error) {
+      console.log('Error connecting to Stripe: ', error);
+    }
   }
 };
 
