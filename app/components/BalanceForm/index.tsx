@@ -8,12 +8,9 @@ import { onSnapshot, addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
 import ButtonSpinner from '@/assets/ButtonSpinner.svg';
 import RedirectingScreen from './RedirectingScreen';
+import { StripePrices } from '@/data/constants';
 
-// test price: price_1NPpnqEIhD4GWlLxAauumyR4
-// live price: price_1NQqUGEIhD4GWlLxBlySFvCn
-// live preset 2$ price: price_1NRZxgEIhD4GWlLxlAL2i0hM
-// live preset 5$ price: price_1NRZzwEIhD4GWlLxlbsJ8UBG
-// live preset 10$ price: price_1NRa0WEIhD4GWlLxok3ZtObp
+// test custom price: price_1NPpnqEIhD4GWlLxAauumyR4
 
 const BalanceForm = () => {
   const [balance, loadingBalance, errorBalance] = useBalance(
@@ -86,9 +83,9 @@ const BalanceForm = () => {
           <div className={styles.wrapperRow}>
             <button
               className={styles.buttonAmount}
-              onClick={() => loadCheckout('price_1NRZxgEIhD4GWlLxlAL2i0hM')}
+              onClick={() => loadCheckout(StripePrices.TWO_DOLARS)}
             >
-              {loadingUI === 'price_1NRZxgEIhD4GWlLxlAL2i0hM' ? (
+              {loadingUI === StripePrices.TWO_DOLARS ? (
                 <Image
                   src={ButtonSpinner}
                   alt="Loading spinner"
@@ -101,9 +98,9 @@ const BalanceForm = () => {
             </button>
             <button
               className={styles.buttonAmount}
-              onClick={() => loadCheckout('price_1NRZzwEIhD4GWlLxlbsJ8UBG')}
+              onClick={() => loadCheckout(StripePrices.FIVE_DOLARS)}
             >
-              {loadingUI === 'price_1NRZzwEIhD4GWlLxlbsJ8UBG' ? (
+              {loadingUI === StripePrices.FIVE_DOLARS ? (
                 <Image
                   src={ButtonSpinner}
                   alt="Loading spinner"
@@ -116,9 +113,9 @@ const BalanceForm = () => {
             </button>
             <button
               className={styles.buttonAmount}
-              onClick={() => loadCheckout('price_1NRa0WEIhD4GWlLxok3ZtObp')}
+              onClick={() => loadCheckout(StripePrices.TEN_DOLARS)}
             >
-              {loadingUI === 'price_1NRa0WEIhD4GWlLxok3ZtObp' ? (
+              {loadingUI === StripePrices.TEN_DOLARS ? (
                 <Image
                   src={ButtonSpinner}
                   alt="Loading spinner"
@@ -133,9 +130,9 @@ const BalanceForm = () => {
           <p className={styles.balanceLabel}>or</p>
           <button
             className={styles.addFundsBtn}
-            onClick={() => loadCheckout('price_1NQqUGEIhD4GWlLxBlySFvCn')}
+            onClick={() => loadCheckout(StripePrices.CUSTOM)}
           >
-            {loadingUI === 'price_1NQqUGEIhD4GWlLxBlySFvCn' ? (
+            {loadingUI === StripePrices.CUSTOM ? (
               <Image
                 src={ButtonSpinner}
                 alt="Loading spinner"
