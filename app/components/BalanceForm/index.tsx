@@ -8,6 +8,7 @@ import { onSnapshot, addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
 import RedirectingScreen from './RedirectingScreen';
 import { StripePrices } from '@/data/constants';
+import FlowDescription from './FlowDescription';
 
 // test custom price: price_1NPpnqEIhD4GWlLxAauumyR4
 
@@ -110,17 +111,7 @@ const BalanceForm = () => {
             <p>powered by</p>
             <Image src={StripeIcon} height={25} alt="Stripe icon" />
           </div>
-          <p className={styles.description}>
-            For your safety, no payments on this website.
-          </p>
-          <p className={styles.description}>
-            After clicking on the one of the buttons above, you will be
-            redirected to the Stripe.com checkout page.
-          </p>
-          <p className={styles.description}>
-            Payment will be automatically processed, amount will be added to
-            your balance, and you will be redirected back.
-          </p>
+          <FlowDescription />
         </div>
         <TransactionHistory />
       </div>
