@@ -77,6 +77,7 @@ const BalanceForm = () => {
           <h2>
             {balance?.amount} <span className={styles.currencySymbol}>$</span>
           </h2>
+          <p className={styles.balanceLabel}>Add preset amount:</p>
           <div className={styles.wrapperRow}>
             <button
               className={styles.buttonAmount}
@@ -124,6 +125,7 @@ const BalanceForm = () => {
               )}
             </button>
           </div>
+          <p className={styles.balanceLabel}>or</p>
           <button
             className={styles.addFundsBtn}
             onClick={() => loadCheckout('price_1NQqUGEIhD4GWlLxBlySFvCn')}
@@ -143,6 +145,17 @@ const BalanceForm = () => {
             <p>powered by</p>
             <Image src={StripeIcon} height={25} alt="Stripe icon" />
           </div>
+          <p className={styles.description}>
+            For your safety, no payments on this website.
+          </p>
+          <p className={styles.description}>
+            After clicking on the one of the buttons above, you will be
+            redirected to the Stripe.com checkout page.
+          </p>
+          <p className={styles.description}>
+            Payment will be automatically processed, amount will be added to
+            your balance, and you will be redirected back.
+          </p>
         </div>
         <TransactionHistory />
       </div>
