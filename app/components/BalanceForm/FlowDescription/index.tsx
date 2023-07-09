@@ -26,6 +26,10 @@ const FlowDescription = () => {
             redirected to the Stripe.com checkout page.
           </p>
           <p className={styles.description}>
+            Choose there your payment method and provide all the information
+            Stripe will need to complete the purchase.
+          </p>
+          <p className={styles.description}>
             Payment will be automatically processed, amount will be added to
             your balance, and you will be redirected back.
           </p>
