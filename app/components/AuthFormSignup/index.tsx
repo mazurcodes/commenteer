@@ -30,8 +30,10 @@ const AuthFormSignup = () => {
         <label className={styles.label} htmlFor="register-email">
           <p>Email:</p>
           <input
+            className={styles.input}
             autoCorrect="off"
             autoCapitalize="off"
+            autoComplete="off"
             tabIndex={1}
             required
             type="email"
@@ -44,6 +46,8 @@ const AuthFormSignup = () => {
         <label className={styles.label} htmlFor="register-password">
           <p>Password:</p>
           <input
+            autoComplete="new-password"
+            className={styles.input}
             tabIndex={2}
             required
             type="password"
@@ -58,6 +62,8 @@ const AuthFormSignup = () => {
         <label className={styles.label} htmlFor="register-confirm-password">
           <p>Confirm password:</p>
           <input
+            autoComplete="new-password"
+            className={styles.input}
             tabIndex={3}
             required
             type="password"
