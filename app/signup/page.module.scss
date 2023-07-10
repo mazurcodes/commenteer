@@ -1,9 +1,48 @@
-.mainWrapper {
+.wrapper {
+  display: flex;
+}
+.main {
+  flex: 1;
   min-height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  padding: 30px 0;
+
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-weight: 400;
+    font-size: 64px;
+    padding: 40px 0 20px;
+    display: none;
+
+    @media (min-width: 750px) {
+      display: block;
+      padding: 90px 0 30px;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    height: 99vh;
+    justify-content: center;
+  }
+}
+
+.description {
+  text-align: center;
+  padding: 20px 0 30px;
+
+  p {
+    line-height: 30px;
+  }
+
+  @media (min-width: 750px) {
+    padding: 0 0 90px;
+  }
 }
 
 .error {
@@ -19,4 +58,21 @@
 .span {
   font-weight: 700;
   text-decoration: underline;
+}
+
+.aside {
+  display: none;
+  background-image: url('/AuthImage3.png');
+  background-size: cover;
+
+  @media (min-width: 1000px) {
+    display: block;
+    flex: 1;
+    height: 100vh;
+  }
+}
+
+.authImage {
+  height: 99.7%;
+  width: 100%;
 }
