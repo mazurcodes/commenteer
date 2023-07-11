@@ -1,22 +1,39 @@
 .welcomeWrapper {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   h1 {
-    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: 900;
+    margin-bottom: 30px;
+  }
+}
+
+.description {
+  text-align: center;
+  padding: 20px 0 30px;
+
+  p {
+    line-height: 30px;
+  }
+
+  @media (min-width: 750px) {
+    padding: 0 0 90px;
   }
 }
 
 .btnWrapper {
   display: flex;
-  gap: 10px;
+  gap: 20px;
 }
 
 .welcomeBtn {
   width: 100px;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
+  padding: 15px;
   color: #d7d7d7;
-  background-color: #585963;
+  background-color: #393a42;
+  border: 1px solid #696b76;
   font-size: 14px;
   font-weight: 600;
   text-align: center;
