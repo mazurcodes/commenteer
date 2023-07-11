@@ -38,7 +38,7 @@ const SignupPage = () => {
     return (
       <div className={styles.wrapper}>
         <main className={styles.main}>
-          <h1 className={styles.logo}>Commenteer</h1>
+          <h1>Commenteer</h1>
           <h2>Hi there!</h2>
           <div className={styles.description}>
             <p>Create Social Media Engagement with</p>
@@ -46,9 +46,13 @@ const SignupPage = () => {
           </div>
           <div>
             <AuthFormSignup />
-            <Link href="/login" className={styles.link}>
-              Already a member? <span className={styles.span}>Log In</span>.
-            </Link>
+            <p className={styles.link}>
+              Already a member?{' '}
+              <Link href="/login" className={styles.span}>
+                Log In
+              </Link>
+              .
+            </p>
           </div>
         </main>
         <aside className={styles.aside} />
