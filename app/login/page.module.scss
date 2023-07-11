@@ -1,22 +1,71 @@
-.mainWrapper {
+.wrapper {
+  display: flex;
+}
+.main {
+  flex: 1;
   min-height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  padding: 30px 0;
+
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-weight: 400;
+    font-size: 64px;
+    padding: 40px 0 20px;
+    display: none;
+
+    @media (min-width: 750px) {
+      display: block;
+      padding: 90px 0 30px;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    height: 99vh;
+    justify-content: center;
+  }
 }
 
-.error {
-  color: #d10101;
+.description {
+  text-align: center;
+  padding: 20px 0 30px;
+
+  p {
+    line-height: 30px;
+  }
+
+  @media (min-width: 750px) {
+    padding: 0 0 90px;
+  }
 }
 
 .link {
-  padding: 12px;
-  color: #d7d7d7;
-  text-decoration: none;
+  display: block;
+  text-align: center;
+  padding: 10px;
 }
 
 .span {
+  padding: 5px 0;
   font-weight: 700;
+  color: #d7d7d7;
   text-decoration: underline;
+}
+
+.aside {
+  display: none;
+  background-image: url('/AuthImage3.png');
+  background-size: cover;
+
+  @media (min-width: 1000px) {
+    // display: block; // TODO: create some awesome image for the right side
+    flex: 1;
+    height: 100vh;
+  }
 }

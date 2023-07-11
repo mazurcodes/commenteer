@@ -36,16 +36,31 @@ const LoginPage = () => {
 
   if (!user)
     return (
-      <main className={styles.mainWrapper}>
-        <AuthFormLogin />
-        <Link href="/signup" className={styles.link}>
-          Not a member? <span className={styles.span}>Sign up</span>.
-        </Link>
-      </main>
+      <div className={styles.wrapper}>
+        <main className={styles.main}>
+          <h1>Commenteer</h1>
+          <h2>Welcome!</h2>
+          <div className={styles.description}>
+            <p>Create Social Media Engagement with</p>
+            <p>AI Generated Comments</p>
+          </div>
+          <div>
+            <AuthFormLogin />
+            <p className={styles.link}>
+              Not a member?{' '}
+              <Link href="/signup" className={styles.span}>
+                Sign up
+              </Link>
+              .
+            </p>
+          </div>
+        </main>
+        <aside className={styles.aside} />
+      </div>
     );
 
   return (
-    <main className={styles.mainWrapper}>
+    <main className={styles.main}>
       <h3>Hello</h3>
     </main>
   );

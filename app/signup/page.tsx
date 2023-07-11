@@ -60,7 +60,7 @@ const SignupPage = () => {
     );
 
   return (
-    <main className={styles.mainWrapper}>
+    <main className={styles.main}>
       <h3>Hello</h3>
     </main>
   );
