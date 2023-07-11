@@ -25,6 +25,7 @@ const AuthFormLogin = () => {
         <label className={styles.label} htmlFor="login-email">
           <p>Email:</p>
           <input
+            className={styles.input}
             autoCorrect="off"
             autoCapitalize="off"
             tabIndex={1}
@@ -39,6 +40,7 @@ const AuthFormLogin = () => {
         <label className={styles.label} htmlFor="login-password">
           <p>Password:</p>
           <input
+            className={styles.input}
             tabIndex={2}
             required
             type="password"
