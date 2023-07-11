@@ -3,10 +3,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 280px;
 
   h1 {
     font-weight: 600;
     font-size: 32px;
+  }
+
+  @media (min-width: 768px) {
+    width: 370px;
   }
 }
 
@@ -25,6 +30,7 @@
   font-size: 14px;
   font-weight: 500;
   color: #696b76;
+  margin-bottom: 15px;
 }
 
 .input {
@@ -48,16 +54,14 @@
 
 .submitBtn {
   width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  color: #d7d7d7;
-  background-color: #585963;
+  height: 60px;
+  margin-top: 20px;
+  background-color: #393a42;
+  border: 1px solid #696b76;
   font-size: 14px;
-  font-weight: 600;
   cursor: pointer;
 
   &:hover {
-    background-color: #6e6e76;
+    background-color: #696b76;
   }
 }
