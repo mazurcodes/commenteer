@@ -30,13 +30,17 @@ const AuthFormReset = () => {
 
   return (
     <form role="form" className={styles.form} onSubmit={handleSubmit}>
+      <h2>Commenteer</h2>
+      <h3>It happens :)</h3>
       <h1>Reset password</h1>
       <div className={styles.wrapper}>
         <label className={styles.label} htmlFor="login-email">
           <p>Email:</p>
           <input
+            className={styles.input}
             autoCorrect="off"
             autoCapitalize="off"
+            autoComplete="off"
             tabIndex={1}
             required
             type="email"
@@ -53,7 +57,7 @@ const AuthFormReset = () => {
         )}
         <input
           className={styles.submitBtn}
-          tabIndex={3}
+          tabIndex={2}
           type="submit"
           value={sending ? 'Sending email' : 'Reset'}
         />
