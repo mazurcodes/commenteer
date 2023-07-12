@@ -38,9 +38,13 @@ const ResetPage = () => {
     return (
       <main className={styles.mainWrapper}>
         <AuthFormReset />
-        <Link href="/login" className={styles.link}>
-          Remember password? <span className={styles.span}>Login</span>.
-        </Link>
+        <p className={styles.remember}>
+          Remember password?{' '}
+          <Link href="/login" className={styles.link}>
+            Login
+          </Link>
+          .
+        </p>
       </main>
     );
 
