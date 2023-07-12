@@ -24,15 +24,18 @@ const AuthFormDelete = () => {
 
   return (
     <form role="form" className={styles.form}>
-      <h1>We are sorry to see you go :( </h1>
+      <h2>Commenteer</h2>
+      <h1>Account deletion</h1>
+      <h3>We are sorry to see you go :( </h3>
       <p className={styles.advice}>
         Be advised, account deletion is final. There will be no way to restore
-        your account.
+        your account and your data.
       </p>
       <div className={styles.wrapper}>
         <label className={styles.label} htmlFor="login-password">
-          <p>Confirm your password:</p>
+          <p>Account password:</p>
           <input
+            className={styles.input}
             autoComplete="off"
             tabIndex={1}
             required
