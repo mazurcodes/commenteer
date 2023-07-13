@@ -58,7 +58,8 @@ const balanceCollection = collection(db, 'balance');
 export const useBalance = (
   userId = ''
 ): [Balance | undefined, boolean, FirestoreError | undefined] => {
-  const [balance, setBalance] = useState<Balance>();
+  const initialBalance = { amount: 0, currency: 'USD' };
+  const [balance, setBalance] = useState<Balance>(initialBalance);
   const docRef = doc(balanceCollection, userId);
   const [value, loading, error] = useDocument(docRef);
 
