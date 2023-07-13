@@ -23,7 +23,7 @@ const AuthFormSignup = () => {
         password
       );
       const actionCodeSettings = {
-        url: `localhost:3000/api/verify-email?e=${userCredential?.user.uid}`,
+        url: `http://localhost:3000/api/verify-email?i=${userCredential?.user.uid}`,
       };
       userCredential &&
         sendEmailVerification(userCredential.user, actionCodeSettings);

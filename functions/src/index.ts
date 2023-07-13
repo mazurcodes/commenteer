@@ -30,6 +30,24 @@ export const createBalance = onDocumentCreated(
   }
 );
 
+export const addBonusBalance = onDocumentCreated(
+  'verified_emails/{customerId}',
+  (event) => {
+    const customerId = event.params.customerId;
+    const userDoc = db.collection('balance').doc(customerId);
+    userDoc.update({
+      amount: admin.firestore.FieldValue.increment(200),
+    });
+
+    userDoc.collection('transaction-history').doc().set({
+      created: Date.now(),
+      type: 'recharge',
+      amount: 200,
+      name: 'Email verification bonus',
+    });
+  }
+);
+
 export const addToBalance = onDocumentCreated(
   'customers/{customerId}/payments/{paymentId}',
   (event) => {
