@@ -4,6 +4,7 @@ import { extractFirebaseErrorMessage } from '@/firebase/errorUtils';
 import { useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import styles from './index.module.scss';
+import { sendEmailVerification } from 'firebase/auth';
 
 const AuthFormSignup = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +18,15 @@ const AuthFormSignup = () => {
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (password === passwordConfirm) {
-      await createUserWithEmailAndPassword(email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      const actionCodeSettings = {
+        url: `localhost:3000/api/verify-email?e=${userCredential?.user.uid}`,
+      };
+      userCredential &&
+        sendEmailVerification(userCredential.user, actionCodeSettings);
     } else {
       setErrorUI("Passwords doesn't match");
     }
