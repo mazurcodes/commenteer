@@ -75,8 +75,11 @@
   }
 }
 
-.deleteBtn {
+.deleteLink {
   background-color: #a12820;
+  color: #c9c9c9;
+  text-decoration: none;
+  font-size: 14px;
 
   &:hover {
     background-color: #d44137;
