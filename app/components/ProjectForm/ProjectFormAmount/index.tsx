@@ -21,7 +21,7 @@ const ProjectFormAmount = ({ setBalanceOk }: ProjectFormAmountProps) => {
     } else {
       setBalanceOk(false);
     }
-  });
+  }, [amount, balance, setBalanceOk]);
 
   return (
     <div className={styles.wrapper}>
