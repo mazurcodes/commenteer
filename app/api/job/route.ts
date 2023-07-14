@@ -2,7 +2,6 @@ import { CommentType } from '@/data/constants';
 import { createJob, getRandomCommentsOfType } from '@/firebase/crudUtils';
 import { JobData } from '@/types';
 import { prepComments } from '@/utils/commentUtils';
-import { Timestamp } from 'firebase/firestore';
 import { NextResponse } from 'next/server';
 
 type CommentsBody = {
@@ -81,7 +80,7 @@ async function prepJobData(
     amount: +amount,
     cost: +cost * -100, // to cents and negative
     comments,
-    createdAt: Timestamp.now(),
+    createdAt: Date.now(),
   };
 }
 

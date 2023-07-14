@@ -1,5 +1,4 @@
 import { CommentType, TransactionType } from '@/data/constants';
-import { Timestamp } from 'firebase/firestore';
 
 export type Comment = {
   type: CommentType;
@@ -26,7 +25,7 @@ export type JobData = {
   amount: number;
   cost: number;
   comments: string;
-  createdAt: Timestamp;
+  createdAt: number;
   id?: string;
 };
 
