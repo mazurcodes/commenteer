@@ -9,6 +9,11 @@ import RedirectingScreen from './RedirectingScreen';
 import { StripePrices } from '@/data/constants';
 import FlowDescription from './FlowDescription';
 import { createCheckoutAndRedirect } from '@/firebase/crudUtils';
+import PaymentIconVisa from '@/assets/PaymentIconVisa.svg';
+import PaymentIconMasterCard from '@/assets/PaymentIconMasterCard.svg';
+import PaymentIconGoogle from '@/assets/PaymentIconGoogle.svg';
+import PaymentIconApple from '@/assets/PaymentIconApple.svg';
+import PaymentIconStripe from '@/assets/PaymentIconStripe.svg';
 
 // test custom price: price_1NPpnqEIhD4GWlLxAauumyR4
 
@@ -84,6 +89,29 @@ const BalanceForm = () => {
             <Image src={StripeIcon} height={25} alt="Stripe icon" />
           </div>
           <FlowDescription />
+          <div className={styles.paymentMethods}>
+            <Image src={PaymentIconVisa} height={25} alt="Visa payment icon" />
+            <Image
+              src={PaymentIconMasterCard}
+              height={25}
+              alt="MasterCard payment icon"
+            />
+            <Image
+              src={PaymentIconGoogle}
+              height={25}
+              alt="Google payment icon"
+            />
+            <Image
+              src={PaymentIconApple}
+              height={25}
+              alt="Apple payment icon"
+            />
+            <Image
+              src={PaymentIconStripe}
+              height={25}
+              alt="Stripe payment icon"
+            />
+          </div>
         </div>
         <TransactionHistory />
       </div>
