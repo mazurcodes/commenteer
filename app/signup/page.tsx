@@ -54,6 +54,9 @@ const SignupPage = () => {
               .
             </p>
           </div>
+          <p className={styles.bonusBalanceInfo}>
+            Verify your email and get $2 bonus balance.
+          </p>
         </main>
         <aside className={styles.aside} />
       </div>

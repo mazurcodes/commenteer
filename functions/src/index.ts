@@ -18,14 +18,32 @@ export const createBalance = onDocumentCreated(
     const customerId = event.params.customerId;
     const userDoc = db.collection('balance').doc(customerId);
     userDoc.set({
-      amount: 100,
+      amount: 0,
       currency: 'USD',
     });
     userDoc.collection('transaction-history').doc().set({
       created: Date.now(),
       type: 'recharge',
-      amount: 100,
+      amount: 0,
       name: 'Initial balance',
+    });
+  }
+);
+
+export const addBonusBalance = onDocumentCreated(
+  'verified_emails/{customerId}',
+  (event) => {
+    const customerId = event.params.customerId;
+    const userDoc = db.collection('balance').doc(customerId);
+    userDoc.update({
+      amount: admin.firestore.FieldValue.increment(200),
+    });
+
+    userDoc.collection('transaction-history').doc().set({
+      created: Date.now(),
+      type: 'recharge',
+      amount: 200,
+      name: 'Email verification bonus',
     });
   }
 );

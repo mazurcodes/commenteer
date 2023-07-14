@@ -15,17 +15,21 @@ const JobDisplay = () => {
     return (
       <div className={styles.wrapper}>
         <div>
-          <FieldDisplay description="Project name:" content={job?.name} />
+          <FieldDisplay description="Project name" content={job?.name} />
           {job?.description && (
             <FieldDisplay
-              description="Description:"
+              description="Description"
               content={job?.description}
             />
           )}
-          <FieldDisplay description="Settings:">
+          <FieldDisplay description="Settings">
             <JobSettings settings={job?.settings} />
           </FieldDisplay>
-          <FieldDisplay description="Amount:" content={job?.amount} />
+          <FieldDisplay description="Amount" content={job?.amount} />
+          <FieldDisplay
+            description="Cost"
+            content={`$ ${(job?.amount * 0.002).toFixed(2)}`}
+          />
         </div>
         <CommentsDisplay comments={job?.comments} />
       </div>
