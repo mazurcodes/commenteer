@@ -31,5 +31,5 @@ export async function GET(request: Request): Promise<Response> {
     }
   }
 
-  return NextResponse.json('email verified', { status: 200 });
+  return NextResponse.redirect(request.url.split('/api')[0]);
 }
