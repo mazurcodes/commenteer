@@ -4,14 +4,6 @@ import * as admin from 'firebase-admin';
 admin.initializeApp();
 const db = admin.firestore();
 
-// // Start writing functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
-
 export const createBalance = onDocumentCreated(
   'customers/{customerId}',
   (event) => {
@@ -73,28 +65,3 @@ export const addToBalance = onDocumentCreated(
     }
   }
 );
-
-// export const deductFromBalance = onDocumentCreated('jobs/{jobId}', (event) => {
-//   const {
-//     name,
-//     cost = 0,
-//     ownerId,
-//   } = event.data?.data() as {
-//     name: string;
-//     cost: number;
-//     ownerId: string;
-//   };
-
-//   const userBalanceDoc = db.collection('balance').doc(ownerId);
-
-//   userBalanceDoc.update({
-//     amount: admin.firestore.FieldValue.increment(cost),
-//   });
-
-//   userBalanceDoc.collection('transaction-history').doc().set({
-//     created: Date.now(),
-//     type: 'purchase',
-//     amount: cost,
-//     name,
-//   });
-// });
