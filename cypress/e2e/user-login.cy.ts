@@ -17,6 +17,14 @@ describe('User login', () => {
     cy.get('span').should('contain', 'Error:');
   });
 
+  it('lets the user go to the reset password page', () => {
+    cy.visit('http://localhost:3000/login');
+    cy.get('p').should('contain', 'Not a member?');
+    cy.get('a:contains("Forgot password?")').click();
+    cy.url().should('eq', 'http://localhost:3000/login/reset');
+    cy.get('h1').should('contain', 'Reset password');
+  });
+
   it('lets the user go to the signup page', () => {
     cy.visit('http://localhost:3000/login');
     cy.get('p').should('contain', 'Not a member?');
