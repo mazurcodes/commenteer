@@ -38,8 +38,8 @@ const LoginPage = () => {
     return (
       <div className={styles.wrapper}>
         <main className={styles.main}>
-          <h1>Commenteer</h1>
-          <h2>Welcome!</h2>
+          <h2>Commenteer</h2>
+          <h3>Welcome!</h3>
           <div className={styles.description}>
             <p>Create Social Media Engagement with</p>
             <p>AI Generated Comments</p>

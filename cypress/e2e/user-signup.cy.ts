@@ -1,5 +1,5 @@
 describe('User sign up to the app', () => {
-  it('It shows the signup page', () => {
+  it('shows the signup page', () => {
     cy.visit('http://localhost:3000/signup');
     cy.get('h1').should('contain', 'Sign up');
     cy.get('h2').should('contain', 'Commenteer');
@@ -10,7 +10,7 @@ describe('User sign up to the app', () => {
     cy.get('a:contains("Log In")').should('exist');
   });
 
-  it('It lets the user sign up and shows up the error', () => {
+  it('lets the user sign up and shows up the error', () => {
     cy.visit('http://localhost:3000/signup');
     cy.get('input[name="register-email"]').type('test@mazur.codes');
     cy.get('input[name="register-password"]').type('abcabc');
@@ -19,7 +19,7 @@ describe('User sign up to the app', () => {
     cy.get('span').should('contain', 'Error: email already in use');
   });
 
-  it('It lets the user go to the login page', () => {
+  it('lets the user go to the login page', () => {
     cy.visit('http://localhost:3000/signup');
     cy.get('p').should('contain', 'Already a member?');
     cy.get('a:contains("Log In")').click();
