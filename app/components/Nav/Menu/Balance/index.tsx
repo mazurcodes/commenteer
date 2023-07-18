@@ -17,7 +17,7 @@ const MenuBalance = () => {
         </div>
         <div className={styles.buttonSideRight}>
           {loading && <p>loading</p>}
-          {balance && <p>{balance?.amount}$</p>}
+          {!loading && balance && <p>{balance?.amount}$</p>}
         </div>
       </Link>
     </div>
