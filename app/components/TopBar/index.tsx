@@ -19,7 +19,7 @@ const TopBar = () => {
           height={15}
         />
       </button>
-      <h1 className={styles.menuBarLogo}>Commenteer</h1>
+      <h2 className={styles.menuBarLogo}>Commenteer</h2>
       <div className={!isOpen ? styles.hidden : styles.navMobile}>
         <NavMobile />
       </div>
