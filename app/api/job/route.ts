@@ -18,11 +18,43 @@ type CommentsBody = {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const comments = await getComments(body);
-  const preparedComments = prepComments(comments, body.name);
-  const jobData = await prepJobData(body, preparedComments);
+  const bodyWithNumbers = convertSettingsStringsToNumbers(body);
+  const validatedBody = validateSettings(bodyWithNumbers);
+  const comments = await getComments(validatedBody);
+  const preparedComments = prepComments(comments, validatedBody.name);
+  const jobData = await prepJobData(validatedBody, preparedComments);
   const jobId = await createJob(jobData);
   return NextResponse.json(jobId);
+}
+
+function convertSettingsStringsToNumbers(body: CommentsBody) {
+  const { positive, negative, neutral, questions, amount } = body;
+  return {
+    ...body,
+    positive: +positive,
+    negative: +negative,
+    neutral: +neutral,
+    questions: +questions,
+    amount: +amount,
+  };
+}
+
+function validateSettings(body: CommentsBody) {
+  const { positive, negative, neutral, questions } = body;
+
+  if (positive + negative + neutral + questions !== 100) {
+    return adjustSettings(body);
+  }
+  return body;
+}
+
+function adjustSettings(body: CommentsBody) {
+  const { positive, negative, neutral, questions } = body;
+  const diff = 100 - (positive + negative + neutral + questions);
+  console.log(diff);
+  console.log('raw body: ', body);
+  console.log('validated body: ', { ...body, positive: positive + diff });
+  return { ...body, positive: positive + diff };
 }
 
 async function getComments(body: CommentsBody) {
@@ -72,12 +104,12 @@ async function prepJobData(
     name,
     description: description || '',
     settings: {
-      positive: +positive,
-      negative: +negative,
-      neutral: +neutral,
-      questions: +questions,
+      positive: positive,
+      negative: negative,
+      neutral: neutral,
+      questions: questions,
     },
-    amount: +amount,
+    amount: amount,
     cost: +cost * -100, // to cents and negative
     comments,
     createdAt: Date.now(),
