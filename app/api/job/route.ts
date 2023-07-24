@@ -1,6 +1,5 @@
 import { CommentType } from '@/data/constants';
 import { createJob, getRandomCommentsOfType } from '@/firebase/crudUtils';
-import { JobData } from '@/types';
 import { prepComments } from '@/utils/commentUtils';
 import { NextResponse } from 'next/server';
 
@@ -22,7 +21,7 @@ export async function POST(request: Request) {
   const validatedBody = validateSettings(bodyWithNumbers);
   const comments = await getComments(validatedBody);
   const preparedComments = prepComments(comments, validatedBody.name);
-  const jobData = await prepJobData(validatedBody, preparedComments);
+  const jobData = prepJobData(validatedBody, preparedComments);
   const jobId = await createJob(jobData);
   return NextResponse.json(jobId);
 }
@@ -43,17 +42,14 @@ function validateSettings(body: CommentsBody) {
   const { positive, negative, neutral, questions } = body;
 
   if (positive + negative + neutral + questions !== 100) {
-    return adjustSettings(body);
+    return adjustSettingsTo100(body);
   }
   return body;
 }
 
-function adjustSettings(body: CommentsBody) {
+function adjustSettingsTo100(body: CommentsBody) {
   const { positive, negative, neutral, questions } = body;
   const diff = 100 - (positive + negative + neutral + questions);
-  console.log(diff);
-  console.log('raw body: ', body);
-  console.log('validated body: ', { ...body, positive: positive + diff });
   return { ...body, positive: positive + diff };
 }
 
@@ -84,10 +80,7 @@ async function getComments(body: CommentsBody) {
   ];
 }
 
-async function prepJobData(
-  body: CommentsBody,
-  comments: string
-): Promise<JobData> {
+function prepJobData(body: CommentsBody, comments: string) {
   const {
     ownerId,
     name,
