@@ -66,6 +66,11 @@ export const getAllCommentsOfType = async (
 };
 
 export const createMultipleComments = async (data: Comment[]) => {
+  if (data.length === 0) {
+    throw new Error('No data to create comments');
+    return;
+  }
+
   const batch = writeBatch(db);
 
   data.forEach((comment) => {
