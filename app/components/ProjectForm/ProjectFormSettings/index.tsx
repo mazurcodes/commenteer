@@ -141,6 +141,12 @@ const ProjectFormSettings = () => {
           />
         </Box>
       </div>
+      <div>
+        <p className={styles.hint}>
+          <span>Hint:</span> When settings are at 100%, reduce one slider to add
+          to the other.
+        </p>
+      </div>
     </div>
   );
 };
