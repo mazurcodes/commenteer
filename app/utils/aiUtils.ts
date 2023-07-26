@@ -13,9 +13,9 @@ export type CreateCompletionProps = {
 export const createCompletion = async (data: CreateCompletionProps) => {
   const prompt = createPrompt(data);
   return await openai.createCompletion({
-    model: 'text-davinci-003',
+    model: 'gpt-4-32k',
     prompt,
-    max_tokens: 2000,
+    max_tokens: 32000,
     temperature: 1.0,
   });
 };
@@ -84,7 +84,7 @@ export const createNeutralCompletion = async (
 };
 
 export const createNeutralPrompt = (data: CreatePositiveCompletionProps) => {
-  const { name,  amount } = data;
+  const { name, amount } = data;
 
   return `I have created a youtube video about crypto project named ${name}.
   Please generate ${amount} random viewer comments on the video.
