@@ -39,7 +39,6 @@ const SignupPage = () => {
       <div className={styles.wrapper}>
         <main className={styles.main}>
           <h2>Commenteer</h2>
-          <h3>Hi there!</h3>
           <div className={styles.description}>
             <p>Create Social Media Engagement with</p>
             <p>AI Generated Comments</p>
@@ -55,7 +54,7 @@ const SignupPage = () => {
             </p>
           </div>
           <p className={styles.bonusBalanceInfo}>
-            Verify your email and get $2 bonus balance.
+            Verify your email and get $5 bonus balance.
           </p>
         </main>
         <aside className={styles.aside} />
