@@ -16,18 +16,19 @@
 
   h2 {
     font-weight: 400;
-    font-size: 64px;
-    padding: 40px 0 20px;
-    display: none;
+    font-size: 42px;
+    font-weight: 900;
+    padding: 0 0 20px;
 
     @media (min-width: 750px) {
       display: block;
       padding: 90px 0 30px;
+      font-size: 64px;
     }
   }
 
   @media (min-width: 1000px) {
-    height: 99vh;
+    min-height: 99vh;
     justify-content: center;
   }
 }
