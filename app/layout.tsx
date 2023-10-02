@@ -1,7 +1,10 @@
 import './globals.scss';
 import { Inter } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  weight: ['400', '500', '700', '900'],
+  subsets: ['latin'],
+});
 
 export const metadata = {
   title: 'Commenteer | Social Media Engagement',
