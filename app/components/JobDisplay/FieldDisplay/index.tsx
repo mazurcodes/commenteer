@@ -12,9 +12,9 @@ const FieldDisplay = ({
 }: FieldDisplayProps) => {
   return (
     <div className={styles.field}>
-      <p>{description}</p>
+      <h3>{description}</h3>
       <div className={styles.fieldContent}>
-        <h1>{content}</h1>
+        <p>{content}</p>
         {children}
       </div>
     </div>
