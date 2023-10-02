@@ -7,6 +7,7 @@ const ProjectFormDescription = () => {
   return (
     <textarea
       autoFocus
+      id="description"
       name="description"
       placeholder='like "This project is about the crypto exchange for the tybetan people"'
       onChange={(event) => setProjectDescription(event.target.value)}
